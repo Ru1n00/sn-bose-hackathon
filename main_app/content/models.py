@@ -122,7 +122,7 @@ class PostFile(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return self.file.name
 
 
 # Comment Model
