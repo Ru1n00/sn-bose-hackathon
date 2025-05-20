@@ -29,7 +29,8 @@ class Category(models.Model):
 
 
 # Custom User Model
-class ContentUserProfile(CustomUser):
+class ContentUserProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     full_name = models.CharField(max_length=255)
     current_streak = models.IntegerField(default=0)
     max_streak = models.IntegerField(default=0)
@@ -49,7 +50,7 @@ class ContentUserProfile(CustomUser):
 
 # Post Model
 class Post(models.Model):
-    post_user = models.ForeignKey(ContentUserProfile, on_delete=models.CASCADE)
+    post_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug=models.CharField(max_length=255, unique=True, null=True, blank=True)
     stage = models.CharField(max_length=20, choices=ContentUserProfile.STAGE_CHOICES)
@@ -81,7 +82,7 @@ def add_slug(sender, instance, **kwargs):
 # Post Rating Model
 class PostRating(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(ContentUserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=[(i, f'{i}/5 Stars') for i in range(1, 6)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -92,7 +93,7 @@ class PostRating(models.Model):
 # Post Report Model
 class PostReport(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(ContentUserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     REPORT_CHOICES = [
         ('misinformation', 'Misinformation'),
         ('inappropriate_content', 'Inappropriate Content'),
@@ -128,7 +129,7 @@ class PostFile(models.Model):
 # Comment Model
 class PostComment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(ContentUserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     comment_text = models.TextField()
     comment_parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
