@@ -1,8 +1,10 @@
 from django.db import models
-
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 # Create your models here.
 from django.db import models
 from accounts.models import CustomUser
+from .utils import unique_slug_generator
 
 
 # Category Model
@@ -18,6 +20,9 @@ class Category(models.Model):
     #     ('engineering', 'Engineering'),
     # ]
     title = models.CharField(max_length=100, unique=True)
+    slug=models.CharField(max_length=100, unique=True, null=True, blank=True)
+    class Meta:
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.title
@@ -46,6 +51,7 @@ class ContentUserProfile(CustomUser):
 class Post(models.Model):
     post_user = models.ForeignKey(ContentUserProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    slug=models.CharField(max_length=255, unique=True, null=True, blank=True)
     stage = models.CharField(max_length=20, choices=ContentUserProfile.STAGE_CHOICES)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
@@ -65,6 +71,12 @@ class Post(models.Model):
             return sum(rating.rating for rating in ratings) // ratings.count()
         return 0
     
+@receiver(pre_save, sender=Category)
+@receiver(pre_save, sender=Post)
+def add_slug(sender, instance, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
 
 # Post Rating Model
 class PostRating(models.Model):
