@@ -111,7 +111,6 @@ class PostReport(models.Model):
 # File Model
 class PostFile(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
     file = models.FileField(upload_to='post_files/')
     file_type = models.CharField(max_length=10, editable=False)  # Store file extension
     created_at = models.DateTimeField(auto_now_add=True)
