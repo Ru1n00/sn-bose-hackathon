@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eruditech</title>
+  <title>Edutech</title>
   <!-- Tailwind -->
   <link rel="stylesheet" href="./src/styles/main.css">
   <!-- Alpine -->
@@ -18,9 +18,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- At A Glance Script -->
   <script src="./src/script/at_a_glance.js"></script>
+  <!-- Partner Logo Carousel -->
+   <link rel="stylesheet" href="src/styles/partner_carousel.css">
+  
 </head>
 
-<body class="antialiased font-['Poppins']">
+<body class="antialiased font-['Poppins'] bg-stone-50">
   <div class="relative w-full min-h-[75rem] bg-stone-50 overflow-hidden">
     <div class="w-full h-[1157px] absolute left-0 top-0 bg-cover bg-center bg-no-repeat z-0"
       style="background-image: url('./src/assets/hero-bg.png');"></div>
@@ -304,7 +307,7 @@
   <div class="absolute bottom-10 right-10 w-40 h-40 bg-purple-600 opacity-30 rounded-full filter blur-3xl animate-pulse"></div>
 </section>
 
-<section class="relative w-[1176.12px] h-[452px] mx-auto">
+<section class="relative w-[1176.12px] h-[452px] mx-auto mb-12 bg-stone-50">
   <!-- Right Image -->
   <img 
     src="src/assets/team.jpg" 
@@ -334,8 +337,60 @@
 <div class="absolute w-[177px] h-[88.5px] left-[600px] top-[88px] bg-[#8DEE98] rounded-b-full"></div>
 </section>
 
+<section>
 
 
+    <h2 class="text-3xl text-slate-950 font-bold text-center mb-12">Our Partner</h2>  <div class="relative overflow-hidden bg-stone-50 py-8">
+  <!-- Infinite-scrolling logo track -->
+  <div class="flex animate-[scroll_20s_linear_infinite]">
+    <!-- Logo items (duplicated for seamless looping) -->
+    <div class="flex shrink-0 items-center gap-16 pr-16">
+      <!-- Logo 1 -->
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 1</span>
+      </div>
+      <!-- Logo 2 -->
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 2</span>
+      </div>
+      <!-- Logo 3 -->
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 3</span>
+      </div>
+      <!-- Logo 4 -->
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 4</span>
+      </div>
+      <!-- Logo 5 -->
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 5</span>
+      </div>
+      
+      <!-- Duplicated logos -->
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 1</span>
+      </div>
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 2</span>
+      </div>
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 3</span>
+      </div>
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 4</span>
+      </div>
+      <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+        <span class="text-gray-500 font-medium">LOGO 5</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Gradient fade edges -->
+  <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-gray-100 to-transparent z-10"></div>
+  <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-gray-100 to-transparent z-10"></div>
+</div>
+
+</section>
 </body>
 
 </html>
