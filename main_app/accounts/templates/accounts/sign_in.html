@@ -36,6 +36,12 @@
           {% for message in messages %}
             <p id="errorMessage" class="text-red-500 text-sm">{{ message }}</p>
           {% endfor %}
+
+          {% if next_url %}
+            <input type="hidden" name="next" value="{{ next_url}}">
+          {% else %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+          {% endif %}
           <button type="submit" class="w-full bg-green-400 hover:bg-green-300 text-[#070926] font-bold py-3 px-6 rounded-lg transition duration-200 cursor-pointer">Sign In</button>
         </form>
         <div class="mt-6 text-center">
