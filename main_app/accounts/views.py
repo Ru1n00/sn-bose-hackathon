@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.urls import is_valid_path
 from urllib.parse import urlparse
 
-from .forms import UserAuthenticationForm
+from .forms import UserAuthenticationForm, CustomUserCreationForm
 
 
 # Create your views here.
@@ -40,3 +40,21 @@ def sign_in(request):
     else:
         form = UserAuthenticationForm()
     return render(request, 'accounts/sign_in.html', {'form': form, 'next': next_url})
+
+
+def sign_up(request):
+    if request.user.is_authenticated:
+        return redirect('content:index')  # Redirect to home if already authenticated
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Auto-login after registration
+            return redirect("content:index") 
+        else:
+            messages.error(request, "Please fill all the fields. Make sure the email is valid and the passwords match.")
+            return render(request, 'accounts/sign_up.html', {'form': form})
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'accounts/sign_up.html', {'form': form})
