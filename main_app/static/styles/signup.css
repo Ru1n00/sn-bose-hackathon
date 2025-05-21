@@ -1,0 +1,25 @@
+body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .input-border {
+      border: none;
+      border-bottom: 2px solid #e5e7eb;
+      border-radius: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .input-border:focus {
+      outline: none;
+      border-bottom-color: #4ade80;
+      box-shadow: none;
+    }
+    select.input-border {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0 center;
+      background-repeat: no-repeat;
+      background-size: 1.5em;
+    }
+    .navbar {
+      backdrop-filter: blur(10px);
+      background-color: rgba(7, 9, 38, 0.8);
+    }

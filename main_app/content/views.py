@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
@@ -5,7 +6,8 @@ from .utils import translate_text
 from .models import (
     Post,
     PostFile,
-    PostComment
+    PostComment,
+    Category,
 )
 
 from .forms import PostForm, PostFileFormSet
@@ -25,6 +27,41 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
     
+class CategoryPostListView(ListView):
+    model = Post
+    template_name = "content/post_list.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, slug=self.kwargs.get("category_slug"))
+        return Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        """ Pass category to context without redundant query """
+        context = super().get_context_data(**kwargs)
+        context["category"] = self.category  # Use the category already fetched in `get_queryset()`
+        return context
+
+
+class PostSearchView(ListView):
+    model = Post
+    template_name = "content/post_search_results.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")  # Get search query from URL
+        if query:
+            return Post.objects.filter(is_active=True).filter(
+                Q(title__icontains=query) | Q(description__icontains=query)
+            ).order_by("-created_at")
+        return Post.objects.none()  # Return empty queryset if no query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.request.GET.get("q")
+        return context
+
+
 
 def post_detail(request, slug):
     # Fetch the post by slug

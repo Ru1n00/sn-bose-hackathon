@@ -1,5 +1,511 @@
-<div>
-    welcome
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- Hero Section Desktop-->
+    <section class="hidden md:block">
+      <!-- Hero Text -->
+      <div class="absolute top-[9.75rem] left-1/2 transform -translate-x-1/2 text-center w-full max-w-[46rem] px-4">
+        <h2 class="text-white text-6xl font-extrabold mb-4 leading-tight">A New Way to Learn &<br />Get Knowledge</h2>
+        <p class="text-white text-xl font-medium">Edutech is here for you with various courses & <br />materials from
+          skilled tutors all around the world for free.</p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="absolute top-[29.69rem] left-1/2 transform -translate-x-1/2 flex items-center gap-28">
+        <button class="bg-green-300 px-6 py-2 rounded-lg text-slate-950 text-xl font-semibold">Get Started</button>
+        <div class="flex items-center gap-2 cursor-pointer">
+          <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="currentColor"
+              viewBox="0 0 20 20">
+              <path d="M6.5 5.5v9l7-4.5-7-4.5z" />
+            </svg>
+          </div> <span class="text-white text-xl font-semibold">Watch video</span>
+        </div>
+      </div>
+
+      <!-- Highlight Borders -->
+      <div class="absolute top-[48.13rem] left-[16.13rem] w-65 h-96 rounded-[6rem] border-2 border-amber-50"></div>
+      <div
+        class="absolute top-[43.44rem] left-1/2 transform -translate-x-1/2 w-65 h-96 rounded-[6rem] border-2 border-amber-50">
+      </div>
+      <div class="absolute top-[48.13rem] right-[16.13rem] w-65 h-96 rounded-[6rem] border-2 border-amber-50"></div>
+
+      <!-- Images -->
+      <img class="absolute top-[49.13rem] left-[15.38rem] h-96 rounded-[100px] object-cover"
+        src="{% static 'assets/hero-02.jpg' %}" alt="Student 2" />
+    
+      <img class="absolute top-[44.31rem] left-1/2 transform -translate-x-1/2 h-96 rounded-[100px] object-cover"
+        src="{% static 'assets/hero-03.jpg' %}" alt="Student 3" />
+      <img class="absolute top-[49.13rem] right-[15.38rem] h-96 rounded-[100px] object-cover"
+        src="{% static 'assets/hero-01.jpg' %}" alt="Student 1" />
+
+      <!-- Stats -->
+      <div class="absolute top-[35.94rem] left-1/2 transform -translate-x-1/2 flex gap-14">
+        <div class="text-center text-white text-base">
+          <strong class="font-semibold">5.2k</strong><br />
+          <span class="font-light">Active Students</span>
+        </div>
+        <div class="text-center text-white text-base">
+          <strong class="font-semibold">1.2k</strong><br />
+          <span class="font-light">Tutors</span>
+        </div>
+        <div class="flex flex-col items-center text-white text-base">
+          <div class="w-5 h-5 flex items-center justify-center mb-1">
+            <?xml version="1.0" encoding="utf-8"?>
+
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 512 512" xml:space="preserve">
+              <style type="text/css">
+                .st0 {
+                  fill: #ffffff;
+                }
+              </style>
+              <g>
+                <path class="st0"
+                  d="M501.98,206.15c-9.769-23.023-25.998-42.56-46.458-56.389c-10.181-6.873-21.446-12.34-33.536-16.068
+		c-12.009-3.809-24.842-5.798-38.088-5.798c-16.982,0-33.294,3.316-48.197,9.365c-1.246,0.492-2.402,0.986-3.558,1.568
+		c-13.416,5.879-25.675,14.16-36.188,24.017c-3.396,3.227-6.623,6.623-9.858,10.432c-5.709,6.542-11.588,14.079-17.305,21.696
+		c-1.157,1.568-2.402,3.226-3.558,4.804c-3.146,4.302-33.212,48.358-38.509,56.226c-2.652,3.97-5.798,8.442-9.195,13.327
+		c-0.744,1.076-1.568,2.24-2.393,3.396c-5.636,8.031-11.928,16.481-17.726,23.937c-2.895,3.72-5.798,7.197-8.281,10.1
+		c-2.563,2.976-4.884,5.378-6.542,6.954c-7.116,6.704-15.486,12.171-24.672,15.899c-9.194,3.728-19.214,5.798-29.816,5.798
+		c-7.286,0-14.322-0.996-20.944-2.815c-3.396-0.913-6.712-2.07-9.939-3.477c-14.248-5.968-26.419-16.068-34.95-28.74
+		c-4.302-6.372-7.699-13.327-10.019-20.783c-2.233-7.456-3.558-15.316-3.558-23.597c0-11.014,2.24-21.365,6.21-30.892
+		c6.049-14.24,16.149-26.329,28.821-34.942c6.372-4.31,13.326-7.618,20.782-9.939c7.448-2.321,15.316-3.638,23.597-3.638
+		c10.602,0.08,20.622,2.07,29.816,5.79c9.187,3.808,17.556,9.194,24.672,15.898c1.658,1.577,3.979,4.059,6.542,6.962
+		c4.472,5.216,9.769,11.92,15.074,18.964c2.07,2.814,4.14,5.628,6.21,8.523c7.949-11.588,21.858-31.959,29.144-42.48
+		c-1.237-1.658-2.482-3.307-3.72-4.965c-3.316-4.23-6.631-8.281-9.938-12.009c-3.316-3.809-6.462-7.205-9.858-10.432
+		c-11.426-10.772-24.922-19.545-39.746-25.586c-14.904-6.049-31.222-9.365-48.196-9.365c-17.637,0-34.53,3.566-49.927,10.108
+		c-23.022,9.688-42.487,25.918-56.316,46.369c-6.873,10.19-12.332,21.527-16.141,33.536C1.989,229.997,0,242.75,0,256.004
+		c0,17.637,3.558,34.53,10.02,49.846c9.768,23.104,25.998,42.569,46.369,56.397c10.27,6.874,21.535,12.332,33.624,16.141
+		c12.008,3.728,24.842,5.717,38.088,5.717c16.974,0,33.293-3.316,48.196-9.356c14.824-6.049,28.239-14.824,39.666-25.506l0.08-0.081
+		c3.397-3.146,6.543-6.631,9.858-10.44c5.709-6.542,11.588-14.071,17.305-21.689c1.157-1.577,2.402-3.154,3.558-4.723
+		c3.146-4.391,44.307-64.758,47.696-69.642c0.752-1.076,1.577-2.232,2.401-3.396c5.637-7.95,11.928-16.48,17.726-23.928
+		c2.895-3.728,5.798-7.206,8.281-10.101c2.564-2.984,4.885-5.386,6.542-6.962c7.116-6.704,15.486-12.09,24.673-15.898
+		c2.24-0.906,4.472-1.649,6.792-2.402c7.286-2.15,14.984-3.307,23.023-3.388c11.013,0.08,21.446,2.232,30.882,6.291
+		c14.241,5.96,26.42,16.06,34.943,28.732c4.31,6.38,7.706,13.335,10.019,20.782c2.321,7.456,3.566,15.324,3.566,23.605
+		c0,11.014-2.24,21.446-6.21,30.883c-6.049,14.24-16.149,26.419-28.821,34.942c-6.372,4.31-13.326,7.707-20.782,9.939
+		c-7.367,2.321-15.316,3.648-23.597,3.648c-10.602,0-20.622-2.07-29.816-5.798c-9.187-3.728-17.557-9.195-24.673-15.899
+		c-1.658-1.577-3.979-4.059-6.542-6.954c-4.472-5.135-9.776-11.928-15.074-18.963c-2.15-2.815-4.221-5.718-6.291-8.613
+		c-0.663,0.994-1.326,1.99-2.07,3.065c-13.666,20.039-22.279,32.71-26.994,39.576c1.237,1.658,2.483,3.235,3.72,4.893
+		c3.316,4.221,6.631,8.281,9.938,12c3.234,3.808,6.462,7.294,9.858,10.44c11.426,10.763,24.923,19.538,39.746,25.587
+		c14.904,6.04,31.215,9.356,48.197,9.356c17.636,0,34.53-3.558,49.846-10.019c23.103-9.769,42.56-25.999,56.396-46.458
+		c6.866-10.181,12.421-21.446,16.141-33.536C510.01,282.083,512,269.25,512,256.004C512,238.367,508.442,221.474,501.98,206.15z" />
+              </g>
+            </svg>
+          </div>
+          <span class="font-light">Resources</span>
+        </div>
+      </div>
+    </section>
+    <!-- hero section desktop ends -->
 
 
+    <!-- hero section mobile -->
+    <section class="mt-20 md:hidden relative  text-white px-4 py-12">
+  
+
+  <!-- Text Content -->
+  <div class="text-center max-w-xl mx-auto mb-8">
+    <h2 class="text-4xl font-extrabold mb-4 leading-tight">
+      A New Way to Learn & Get Knowledge
+    </h2>
+    <p class="text-lg font-medium">
+      Edutech is here for you with various courses & materials from skilled tutors all around the world for free.
+    </p>
+  </div>
+
+  <!-- Background Image -->
+  <img class="w-full  object-cover  mb-8" src="{% static 'assets/signin.png' %}" alt="Student 2" />
+  <!-- Buttons -->
+  <div class="flex flex-col items-center gap-6 mb-8">
+    <button class="bg-green-300 px-6 py-2 rounded-lg text-slate-950 text-lg font-semibold w-full max-w-xs">
+      Get Started
+    </button>
+    <div class="flex items-center gap-2 cursor-pointer">
+      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M6.5 5.5v9l7-4.5-7-4.5z" />
+        </svg>
+      </div>
+      <span class="text-lg font-semibold">Watch video</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-3 gap-6 text-center text-sm">
+    <div>
+      <strong class="font-semibold">5.2k</strong><br />
+      <span class="font-light">Students</span>
+    </div>
+    <div>
+      <strong class="font-semibold">1.2k</strong><br />
+      <span class="font-light">Tutors</span>
+    </div>
+    <div>
+      <strong class="font-semibold">100+</strong><br />
+      <span class="font-light">Resources</span>
+    </div>
+  </div>
+    </section>
+
+
+
+      <!-- Categories Section -->
+
+  <section class="py-12 md:py-16 relative md:mt-300 bg-stone-50 ">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12">
+        <div class="lg:w-1/3">
+          <h2 class=" text-center md:text-left text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Explore<br />Our Categories
+          </h2>
+          <p class="text-center md:text-left text-gray-600 mb-8 max-w-md">
+            We serve various categories of science related content. Deep down into yourself and find your
+            weakness and make them your strength with us in a easy way.
+          </p>
+          <div class="flex justify-center md:justify-start">
+  <button class="bg-indigo-900 text-white px-6 py-3 rounded-md font-medium transition-all duration-300 hover:bg-indigo-800 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+    Explore Categories
+  </button>
 </div>
+        </div>
+
+        <div class="lg:w-2/3 grid grid-cols-2 sm:grid-cols-4 gap-6 md:gap-8">
+          <!-- Physics -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#F2E8F5] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <circle cx="12" cy="12" r="1"></circle>
+                <path d="M20.2 12c-1.74 3.07-4.89 5-8.2 5s-6.46-1.93-8.2-5"></path>
+                <path d="M20.2 12c-1.74-3.07-4.89-5-8.2-5s-6.46 1.93-8.2 5"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Physics</span>
+          </div>
+
+          <!-- Chemistry -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#D2F5E5] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <path
+                  d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2">
+                </path>
+                <path d="M8.5 2h7"></path>
+                <path d="M7 16h10"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Chemistry</span>
+          </div>
+
+          <!-- Biology -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#F8DBDB] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <path d="M2 12c0-3.314 3.134-6 7-6s7 2.686 7 6-3.134 6-7 6-7-2.686-7-6z"></path>
+                <path d="M9 12c0-3.314 3.134-6 7-6s7 2.686 7 6-3.134 6-7 6-7-2.686-7-6z"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Biology</span>
+          </div>
+
+          <!-- Mathematics -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#D2F5E5] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <path d="M3 3v18h18"></path>
+                <path d="M3 12h18"></path>
+                <path d="M12 3v18"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Mathematics</span>
+          </div>
+
+          <!-- Tech -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#F8DBDB] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="2" x2="9" y2="4"></line>
+                <line x1="15" y1="2" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="22"></line>
+                <line x1="15" y1="20" x2="15" y2="22"></line>
+                <line x1="20" y1="9" x2="22" y2="9"></line>
+                <line x1="20" y1="14" x2="22" y2="14"></line>
+                <line x1="2" y1="9" x2="4" y2="9"></line>
+                <line x1="2" y1="14" x2="4" y2="14"></line>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Tech</span>
+          </div>
+
+          <!-- Innovation -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#F2E8F5] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <rect x="4" y="4" width="6" height="6"></rect>
+                <rect x="14" y="4" width="6" height="6"></rect>
+                <rect x="4" y="14" width="6" height="6"></rect>
+                <rect x="14" y="14" width="6" height="6"></rect>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Innovation</span>
+          </div>
+
+          <!-- Research -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#D2F5E5] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <path d="M2 21s9-3 20-3"></path>
+                <path d="M2 16s9-3 20-3"></path>
+                <path d="M2 11s9-3 20-3"></path>
+                <path d="M2 6s9-3 20-3"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Research</span>
+          </div>
+
+          <!-- Engineering -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-[#F8DBDB] rounded-lg mb-2 flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="text-gray-900">
+                <path d="m12 14 4-4"></path>
+                <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 mt-2">Engineering</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+<!-- Why Us Section -->
+<section class="py-16 bg-white">
+  <div class="max-w-[75%] mx-auto px-4">
+    <h2 class="text-3xl text-indigo-800 font-bold text-center mb-10 md:mb-12">
+      Why Choose Edutech?
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-y-8 gap-x-10 md:gap-x-16 lg:gap-x-24 items-center mb-10 md:mb-16">
+      <img src="{% static 'assets/about-01.png' %}" alt="Ease of Access" class="rounded-xl shadow-lg w-full">
+      <div>
+        <h3 class="text-2xl font-semibold text-[#BA68C8] mb-3">Ease of Access</h3>
+        <p class="text-gray-700 text-base md:text-lg">
+          We provide easy to understand video topics and blogs. From any age of student or senior person can learn easily.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-y-8 gap-x-10 md:gap-x-16 lg:gap-x-24 items-center mb-10 md:mb-16">
+      <div class="md:order-2">
+        <img src="{% static 'assets/about-02.png' %}" alt="Gamification" class="rounded-xl shadow-lg w-full">
+      </div>
+      <div class="md:order-1">
+        <h3 class="text-2xl font-semibold text-[#407BFF] mb-3">Gamification</h3>
+        <p class="text-gray-700 text-base md:text-lg">
+          You can participate in a quiz game for specific category you want. Based on your points you can achieve top position of the table. This makes learning more easier and fun.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-y-8 gap-x-10 md:gap-x-16 lg:gap-x-24 items-center mb-10 md:mb-16">
+      <img src="{% static 'assets/about-03.png' %}" alt="Research & Data Collection" class="rounded-xl shadow-lg w-full">
+      <div>
+        <h3 class="text-2xl font-semibold text-[#FF725E] mb-3">Research & Data Collection</h3>
+        <p class="text-gray-700 text-base md:text-lg">
+          You can find research based topics and surveys in our platform. You can collect data and research on a topic from our resources.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-y-8 gap-x-10 md:gap-x-16 lg:gap-x-24 items-center">
+      <div class="md:order-2">
+        <img src="{% static 'assets/about-04.png' %}" alt="Breaking the Language Barrier" class="rounded-xl shadow-lg w-full">
+      </div>
+      <div class="md:order-1">
+        <h3 class="text-2xl font-semibold text-[#FFC100] mb-3">Breaking the Language Barrier</h3>
+        <p class="text-gray-700 text-base md:text-lg">
+          In this platform you will find both English and Bangla video content. Also you can translate the blogs into English to Bangla or Bangla to English. Which makes your learning more easy and sufficient.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- At a Glance Section -->
+
+  <section id="at-a-glance" class="relative py-20 bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-extrabold text-center mb-16 tracking-wide">At a Glance</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        <div
+          class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-8 text-center shadow-xl hover:scale-105 transition-transform duration-300">
+          <div class="text-6xl font-bold text-cyan-400 drop-shadow-md" data-target="500">500+</div>
+          <p class="mt-4 text-xl font-medium text-white/90">Active Users</p>
+        </div>
+
+        <div
+          class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-8 text-center shadow-xl hover:scale-105 transition-transform duration-300">
+          <div class="text-6xl font-bold text-purple-400 drop-shadow-md" data-target="150">150+</div>
+          <p class="mt-4 text-xl font-medium text-white/90">Contributors</p>
+        </div>
+
+        <div
+          class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-8 text-center shadow-xl hover:scale-105 transition-transform duration-300">
+          <div class="text-6xl font-bold text-emerald-400 drop-shadow-md" data-target="100">100</div>
+          <p class="mt-4 text-xl font-medium text-white/90">Surveys</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Decorative Glow Effect -->
+    <div class="absolute top-10 left-10 w-40 h-40 bg-cyan-400 opacity-30 rounded-full filter blur-3xl animate-pulse">
+    </div>
+    <div
+      class="absolute bottom-10 right-10 w-40 h-40 bg-purple-600 opacity-30 rounded-full filter blur-3xl animate-pulse">
+    </div>
+  </section>
+
+<!-- Join Our Team Section -->
+<section class="relative mx-auto mb-12 bg-stone-50 px-4 py-12 max-w-[1176px]">
+  <!-- Desktop Layout -->
+  <div class="hidden md:flex relative w-full h-[452px]">
+    <!-- Right Image -->
+    <img src="{% static 'assets/team.jpg' %}"
+      class="w-[544.5px] h-[363px] absolute left-[631.62px] top-[89px] rounded-tr-[20px] rounded-br-[20px]"
+      alt="Team Image" />
+
+    <!-- Left Background Shape -->
+    <div
+      class="absolute w-[757.76px] h-[363px] left-0 top-[89px] bg-[#070926] rounded-tl-[20px] rounded-tr-[150px] rounded-br-[150px] rounded-bl-[20px]">
+    </div>
+
+    <!-- Text & Button -->
+    <h2 class="absolute left-[66px] top-[160px] text-[#8DEE98] text-[32px] font-medium font-['Poppins']">
+      Join Our Winning Team!
+    </h2>
+    <p class="absolute left-[66px] top-[229px] text-white text-[20px] font-medium font-['Poppins'] leading-relaxed">
+      Join our exciting team in the quest of empowering<br />Bangladesh to learn better!
+    </p>
+    <div
+      class="absolute left-[66px] top-[333.07px] inline-flex items-center justify-center gap-[10px] px-[19px] py-[12px] bg-[#8DEE98] text-black text-[20px] font-medium font-['Poppins'] rounded-[20px] shadow-[0px_4px_8.8px_#8DEE98] outline outline-1 outline-[#8DEE98] outline-offset-[-1px] cursor-pointer hover:scale-105 transition">
+      Apply Now!
+    </div>
+
+    <!-- Green Circle Decoration -->
+    <div class="absolute w-[177px] h-[88.5px] left-[600px] top-[88px] bg-[#8DEE98] rounded-b-full"></div>
+  </div>
+
+  <!-- Mobile Layout -->
+  <div class="md:hidden flex flex-col items-center text-center bg-[#070926] p-6 rounded-2xl">
+    <h2 class="text-[#8DEE98] text-2xl font-semibold font-['Poppins'] mb-2">Join Our Winning Team!</h2>
+    <p class="text-white text-base font-medium font-['Poppins'] leading-relaxed mb-4">
+      Join our exciting team in the quest of empowering Bangladesh to learn better!
+    </p>
+    <img src="{% static 'assets/join.png' %}" alt="Team Image" class="w-full max-w-md rounded-xl mb-4">
+    <div
+      class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#8DEE98] text-black text-base font-medium font-['Poppins'] rounded-xl shadow-md outline outline-1 outline-[#8DEE98] cursor-pointer hover:scale-105 transition">
+      Apply Now!
+    </div>
+  </div>
+</section>
+
+  <!--Partner Section-->
+  <section>
+
+    <h2 class="text-3xl text-slate-950 font-bold text-center mb-12">Our Partner</h2>
+    <div class="relative overflow-hidden bg-stone-50 py-8">
+      <!-- Infinite-scrolling logo track -->
+      <div class="flex animate-[scroll_20s_linear_infinite]">
+        <!-- Logo items (duplicated for seamless looping) -->
+        <div class="flex shrink-0 items-center gap-16 pr-16">
+          <!-- Logo 1 -->
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 1</span>
+          </div>
+          <!-- Logo 2 -->
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 2</span>
+          </div>
+          <!-- Logo 3 -->
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 3</span>
+          </div>
+          <!-- Logo 4 -->
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 4</span>
+          </div>
+          <!-- Logo 5 -->
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 5</span>
+          </div>
+
+          <!-- Duplicated logos -->
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 1</span>
+          </div>
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 2</span>
+          </div>
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 3</span>
+          </div>
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 4</span>
+          </div>
+          <div class="shrink-0 w-40 h-20 bg-white/80 flex items-center justify-center p-4 rounded-lg">
+            <span class="text-gray-500 font-medium">LOGO 5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradient fade edges -->
+      <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-gray-100 to-transparent z-10"></div>
+      <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-gray-100 to-transparent z-10"></div>
+    </div>
+
+  </section>
+{% endblock content %}
+
+{% block scripts %}
+    
+    <script>
+        const jsBg = document.querySelector('.js-bg');
+
+        const baseURL = window.location.origin;
+        console.log(baseURL);
+
+        jsBg.style.backgroundImage = "url('" + baseURL + "{% static 'assets/hero-bg.png' %}')";
+        console.log(jsBg.style.backgroundImage);
+    </script>
+{% endblock scripts %}
