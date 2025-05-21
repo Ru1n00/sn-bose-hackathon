@@ -81,3 +81,31 @@ def post_create(request):
         file_form = PostFileFormSet()
 
     return render(request, 'content/post_create.html', {'form': form, 'file_form': file_form})
+
+
+def post_edit(request, slug):
+    # Fetch the post by slug
+    post = get_object_or_404(Post, slug=slug)
+
+    if request.method == 'POST':
+        # Handle form submission
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.post_user = request.user
+            post.save()
+            # Handle file uploads
+            file_form = PostFileFormSet(request.POST, request.FILES, instance=post)
+            for form in file_form:
+                if form.is_valid():
+                    if form.cleaned_data.get('file'):
+                        post_file = form.save(commit=False)
+                        post_file.post = post
+                        post_file.save()
+            return redirect('content:post_list')
+    else:
+        form = PostForm(instance=post)
+        file_form = PostFileFormSet(instance=post)
+
+    return render(request, 'content/post_edit.html', {'form': form, 'file_form': file_form})

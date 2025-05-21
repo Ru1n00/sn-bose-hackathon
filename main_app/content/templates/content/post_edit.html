@@ -1,0 +1,40 @@
+<div>
+    <h1>Create a New Post</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ file_form.management_form }}
+        <div id="file-fields">
+            {% for form in file_form %}
+                <div class="file-upload">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Button to Add More File Upload Fields -->
+        <button type="button" id="add-file">Add Another File</button>
+        <button type="submit">Save Post</button>
+    </form>
+
+    {% if form.errors %}
+        <div class="error">
+            <p>Please correct the errors below:</p>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById("add-file").addEventListener("click", function () {
+        let formCount = document.querySelectorAll(".file-upload").length;
+        let newField = document.querySelector(".file-upload").cloneNode(true);
+        let total_forms = document.getElementById("id_postfile_set-TOTAL_FORMS");
+        total_forms.value = parseInt(total_forms.value) + 1;
+
+        // Update input names to prevent duplicates
+        newField.innerHTML = newField.innerHTML.replace(/-\d+-/g, `-${formCount}-`);
+        document.getElementById("file-fields").appendChild(newField);
+    });
+</script>
