@@ -6,7 +6,8 @@ from .views import (
     post_detail,
     post_create,
     post_edit,
-    CategoryPostListView
+    CategoryPostListView,
+    PostSearchView
 )
 
 app_name = 'content'
@@ -18,4 +19,5 @@ urlpatterns = [
     path('post/<str:slug>/', post_detail, name='post_detail'),
     path('post-create/', post_create, name='post_create'),
     path('post/<str:slug>/edit/', post_edit, name='post_edit'),
+    path('search/', PostSearchView.as_view(), name='search'),
 ]

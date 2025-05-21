@@ -1,4 +1,9 @@
 <div>
+    <form action="{% url 'content:search' %}" method="GET">
+        <input type="text" name="q" placeholder="Search posts...">
+        <button type="submit">Search</button>
+    </form>
+
     {% for post in posts %}
         <div class="post">
             <a href="{% url 'content:post_detail' post.slug %}">{{ post.title }}</a>
