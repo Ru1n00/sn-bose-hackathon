@@ -1,6 +1,8 @@
 import random
 import string
 
+from googletrans import Translator
+
 
 # random string generator
 def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
@@ -33,3 +35,10 @@ def unique_slug_generator(instance, new_slug=None):
                 )
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+
+
+# utility function to translate text
+def translate_text(text, dest='bn'):
+    translator = Translator()
+    translated = translator.translate(text, dest=dest)
+    return translated.text

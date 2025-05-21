@@ -1,8 +1,9 @@
 from django.db import models
+from django.db.models import Sum
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-# Create your models here.
-from django.db import models
+from django.utils.timezone import now, timedelta
+
 from accounts.models import CustomUser
 from .utils import unique_slug_generator
 
@@ -34,7 +35,8 @@ class ContentUserProfile(models.Model):
     full_name = models.CharField(max_length=255)
     current_streak = models.IntegerField(default=0)
     max_streak = models.IntegerField(default=0)
-
+    last_activity = models.DateField(null=True, blank=True)  # Track last active date
+    
     STAGE_CHOICES = [
         ('primary', 'Primary'),
         ('secondary', 'Secondary'),
@@ -46,6 +48,43 @@ class ContentUserProfile(models.Model):
     stage = models.CharField(max_length=20, choices=STAGE_CHOICES, blank=True)
 
     favorite_subject = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.user.email}"
+
+    @property
+    def get_contributions(self):
+        # upvotes - downvotes in created posts
+        posts = Post.objects.filter(post_user=self.user).aggregate(
+            total_upvotes=Sum("upvotes"),
+            total_downvotes=Sum("downvotes")
+        )
+
+        upvotes = posts["total_upvotes"] or 0  # Handle None case
+        downvotes = posts["total_downvotes"] or 0  # Handle None case
+
+        return upvotes - downvotes
+
+    def update_streak(self):
+        """ Update user's streak based on daily activity """
+        today = now().date()
+        
+        if self.last_activity is None:  # First activity ever
+            self.current_streak = 1
+        elif self.last_activity == today:  # Already active today
+            return
+        elif self.last_activity == today - timedelta(days=1):  # Continued streak
+            self.current_streak += 1
+        else:  # Missed a day, reset streak
+            self.current_streak = 1
+        
+        # Update max streak if necessary
+        if self.current_streak > self.max_streak:
+            self.max_streak = self.current_streak
+        
+        # Update last activity date
+        self.last_activity = today
+        self.save()
 
 
 # Post Model
@@ -61,6 +100,12 @@ class Post(models.Model):
     report_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = "Posts"
+    
 
     def __str__(self):
         return self.title
@@ -130,6 +175,13 @@ class PostComment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     comment_text = models.TextField()
-    comment_parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    comment_parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name_plural = "Comments"
+
+    def __str__(self):
+        return f"{self.user.email} - {self.comment_text[:20]}..."
