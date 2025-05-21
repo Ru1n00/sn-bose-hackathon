@@ -6,68 +6,79 @@
   <title>EduTech - Sign Up</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-    .input-border {
-      border: none;
-      border-bottom: 2px solid #e5e7eb;
-      border-radius: 0;
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .input-border:focus {
-      outline: none;
-      border-bottom-color: #4ade80;
-      box-shadow: none;
-    }
-    select.input-border {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-      background-position: right 0 center;
-      background-repeat: no-repeat;
-      background-size: 1.5em;
-    }
-    .navbar {
-      backdrop-filter: blur(10px);
-      background-color: rgba(7, 9, 38, 0.8);
-    }
-  </style>
+  <script src="../script/menu_toggle.js"></script>
+  <link rel="stylesheet" href="../styles/signup.css">
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
   <!-- Navigation Bar -->
-  <header class="fixed top-0 left-0 right-0 z-50 navbar shadow-md bg-slate-900">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-3xl font-bold text-white">Edu<span class="text-green-400">Tech</span></h1>
-      <nav class="hidden md:flex items-center gap-8">
-        <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Home</a>
-        <div class="flex items-center group relative cursor-pointer">
-          <span class="text-white group-hover:text-green-400 text-lg font-medium transition-colors">Categories</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 w-5 h-5 text-white group-hover:text-green-400 transition-transform" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    <header class="fixed top-0 left-0 right-0 z-50 navbar shadow-md bg-[#070926]">
+      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-white">Edu<span class="text-green-400">Tech</span></h1>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+          <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Home</a>
+          <div class="flex items-center group relative cursor-pointer">
+            <span class="text-white group-hover:text-green-400 text-lg font-medium transition-colors">Categories</span>
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="ml-2 w-5 h-5 text-white group-hover:text-green-400 transition-transform" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+            <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 hidden group-hover:block">
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Physics</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Chemistry</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Biology</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Technology</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Innovation</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Research</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Engineering</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Mathematics</a>
+            </div>
+          </div>
+          <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Blogs</a>
+          <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Contact Us</a>
+        </nav>
+
+        <!-- Desktop Sign Up -->
+        <button
+          class="hidden md:block px-6 py-2 bg-green-400 hover:bg-green-300 rounded-md text-[#070926] font-semibold text-lg transition-colors">Sign
+          Up</button>
+
+        <!-- Hamburger Icon (Mobile Only) -->
+        <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-          <!-- Dropdown Menu -->
-          <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 hidden group-hover:block">
-            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Science</a>
-            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Mathematics</a>
-            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Technology</a>
-            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Arts</a>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden hidden px-6 py-4 bg-[#070926]">
+        <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Home</a>
+        <div class="relative group">
+          <span class="block text-white hover:text-green-400 text-lg font-medium mb-2 cursor-pointer">Categories</span>
+          <div class="pl-4">
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Physics</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Chemistry</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Biology</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Mathematics</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Technology</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Innovation</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Engineering</a>
+            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Research</a>
           </div>
         </div>
-        <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Blogs</a>
-        <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Contact Us</a>
-      </nav>
-      <button class="px-6 py-2 bg-green-400 hover:bg-green-300 rounded-md text-[#070926] font-semibold text-lg transition-colors">Sign Up</button>
-      
-      <!-- Mobile Menu Button -->
-      <button class="md:hidden text-white focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-  </header>
+        <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Blogs</a>
+        <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Contact Us</a>
+        <button class="w-full mt-4 bg-green-400 hover:bg-green-300 text-[#070926] py-2 rounded-md font-semibold">Sign
+          Up</button>
+      </div>
+    </header>
+
+
+  <!-- Spacer -->
+  <div class="h-24"></div>
 
   <!-- Main Content -->
   <main class="flex-grow flex items-center justify-center p-4 mt-20">
