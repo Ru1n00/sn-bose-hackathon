@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     # Custom apps
     'accounts.apps.AccountsConfig',
     'content.apps.ContentConfig',
-
+    'quiz.apps.QuizConfig',
+    
     # Third-party apps
     'django_cleanup.apps.CleanupConfig',
 
