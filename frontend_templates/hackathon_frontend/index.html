@@ -449,6 +449,7 @@
 </section>
 
   <!-- At a Glance Section -->
+
   <section id="at-a-glance" class="relative py-20 bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
     <div class="container mx-auto px-6">
       <h2 class="text-4xl font-extrabold text-center mb-16 tracking-wide">At a Glance</h2>
@@ -483,7 +484,10 @@
     </div>
   </section>
 
-  <section class="relative w-[1176.12px] h-[452px] mx-auto mb-12 bg-stone-50">
+<!-- Join Our Team Section -->
+<section class="relative mx-auto mb-12 bg-stone-50 px-4 py-12 max-w-[1176px]">
+  <!-- Desktop Layout -->
+  <div class="hidden md:flex relative w-full h-[452px]">
     <!-- Right Image -->
     <img src="src/assets/team.jpg"
       class="w-[544.5px] h-[363px] absolute left-[631.62px] top-[89px] rounded-tr-[20px] rounded-br-[20px]"
@@ -494,17 +498,13 @@
       class="absolute w-[757.76px] h-[363px] left-0 top-[89px] bg-[#070926] rounded-tl-[20px] rounded-tr-[150px] rounded-br-[150px] rounded-bl-[20px]">
     </div>
 
-    <!-- Description Text -->
+    <!-- Text & Button -->
+    <h2 class="absolute left-[66px] top-[160px] text-[#8DEE98] text-[32px] font-medium font-['Poppins']">
+      Join Our Winning Team!
+    </h2>
     <p class="absolute left-[66px] top-[229px] text-white text-[20px] font-medium font-['Poppins'] leading-relaxed">
       Join our exciting team in the quest of empowering<br />Bangladesh to learn better!
     </p>
-
-    <!-- Heading -->
-    <h2 class="absolute left-[66px] top-[160px] text-[#8DEE98] text-[32px] font-medium font-['Poppins'] text-center">
-      Join Our Winning Team!
-    </h2>
-
-    <!-- Apply Now Button -->
     <div
       class="absolute left-[66px] top-[333.07px] inline-flex items-center justify-center gap-[10px] px-[19px] py-[12px] bg-[#8DEE98] text-black text-[20px] font-medium font-['Poppins'] rounded-[20px] shadow-[0px_4px_8.8px_#8DEE98] outline outline-1 outline-[#8DEE98] outline-offset-[-1px] cursor-pointer hover:scale-105 transition">
       Apply Now!
@@ -512,10 +512,24 @@
 
     <!-- Green Circle Decoration -->
     <div class="absolute w-[177px] h-[88.5px] left-[600px] top-[88px] bg-[#8DEE98] rounded-b-full"></div>
-  </section>
+  </div>
 
+  <!-- Mobile Layout -->
+  <div class="md:hidden flex flex-col items-center text-center bg-[#070926] p-6 rounded-2xl">
+    <h2 class="text-[#8DEE98] text-2xl font-semibold font-['Poppins'] mb-2">Join Our Winning Team!</h2>
+    <p class="text-white text-base font-medium font-['Poppins'] leading-relaxed mb-4">
+      Join our exciting team in the quest of empowering Bangladesh to learn better!
+    </p>
+    <img src="src/assets/join.png" alt="Team Image" class="w-full max-w-md rounded-xl mb-4">
+    <div
+      class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#8DEE98] text-black text-base font-medium font-['Poppins'] rounded-xl shadow-md outline outline-1 outline-[#8DEE98] cursor-pointer hover:scale-105 transition">
+      Apply Now!
+    </div>
+  </div>
+</section>
+
+  <!--Partner Section-->
   <section>
-
 
     <h2 class="text-3xl text-slate-950 font-bold text-center mb-12">Our Partner</h2>
     <div class="relative overflow-hidden bg-stone-50 py-8">
