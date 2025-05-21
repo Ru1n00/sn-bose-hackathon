@@ -53,15 +53,10 @@
               viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
-            <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 hidden group-hover:block">
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Physics</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Chemistry</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Biology</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Technology</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Innovation</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Research</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Engineering</a>
-              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Mathematics</a>
+            <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 hidden group-hover:block" style="top: 25px;">
+              {% for category in categories %}
+                <a href="{% url 'content:category_post_list' category.slug %}" class="block px-4 py-2 text-gray-800 hover:bg-green-50">{{ category.title }}</a>
+              {% endfor %}
             </div>
           </div>
           <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Blogs</a>
@@ -87,14 +82,9 @@
         <div class="relative group">
           <span class="block text-white hover:text-green-400 text-lg font-medium mb-2 cursor-pointer">Categories</span>
           <div class="pl-4">
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Physics</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Chemistry</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Biology</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Mathematics</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Technology</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Innovation</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Engineering</a>
-            <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Research</a>
+            {% for category in categories %}
+                <a href="{% url 'content:category_post_list' category.slug %}" class="block text-gray-300 hover:text-green-300 text-base mb-1">{{ category.title }}</a>
+            {% endfor %}
           </div>
         </div>
         <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Blogs</a>
