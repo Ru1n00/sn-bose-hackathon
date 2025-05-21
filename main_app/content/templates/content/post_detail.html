@@ -1,0 +1,27 @@
+<div>
+    <h1>{{ post.title }}</h1>
+    <p>T{{ post.description }}</p>
+    <p>{{ post.upvotes }} - {{ post.downvotes }}</p>
+
+    {% for video in videos %}
+        <div class="video">
+            <h2>{{ video.title }}</h2>
+            <video controls width="600">
+                <source src="{{ video.file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p><strong>Date:</strong> {{ video.created_at }}</p>
+        </div>
+    {% endfor %}
+
+    {% for image in images %}
+        <div class="image">
+            <img src="{{ image.file.url }}" alt="{{ image.file.name }}" width="600">
+            <p><strong>Date:</strong> {{ image.created_at }}</p>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'content:post_detail' post.slug %}?lang=bn">Translate to Bangla</a>
+
+
+</div>
