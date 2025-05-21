@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduTech Post</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="../script/menu_toggle.js"></script>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body class="bg-[#fefcf7] font-sans text-gray-800">
+
+  <!-- Change this header with your template -->
+  <!-- Header -->
+  <!-- Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 navbar shadow-md bg-[#070926]">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-white">Edu<span class="text-green-400">Tech</span></h1>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Home</a>
+        <div class="flex items-center group relative cursor-pointer">
+          <span class="text-white group-hover:text-green-400 text-lg font-medium transition-colors">Categories</span>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="ml-2 w-5 h-5 text-white group-hover:text-green-400 transition-transform" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+          <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 hidden group-hover:block">
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Physics</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Chemistry</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Biology</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Technology</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Innovation</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Research</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Engineering</a>
+            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Mathematics</a>
+          </div>
+        </div>
+        <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Blogs</a>
+        <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Contact Us</a>
+      </nav>
+
+      <!-- Desktop Sign Up -->
+      <button
+        class="hidden md:block px-6 py-2 bg-green-400 hover:bg-green-300 rounded-md text-[#070926] font-semibold text-lg transition-colors"
+        onclick="window.location.href='src/pages/sign_up'">Sign
+        Up</button>
+
+      <!-- Hamburger Icon (Mobile Only) -->
+      <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden px-6 py-4 bg-[#070926]">
+      <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Home</a>
+      <div class="relative group">
+        <span class="block text-white hover:text-green-400 text-lg font-medium mb-2 cursor-pointer">Categories</span>
+        <div class="pl-4">
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Physics</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Chemistry</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Biology</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Mathematics</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Technology</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Innovation</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Engineering</a>
+          <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Research</a>
+        </div>
+      </div>
+      <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Blogs</a>
+      <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Contact Us</a>
+      <button class="w-full mt-4 bg-green-400 hover:bg-green-300 text-[#070926] py-2 rounded-md font-semibold"
+        onclick="window.location.href='src/pages/sign_up'">Sign
+        Up</button>
+    </div>
+  </header>
+  <!-- Navigation header ends here -->
+
+  <!-- Post Preview UI --><!-- Post Preview UI -->
+  <div x-data="quizComponent"
+    class="mt-20 max-w-4xl mx-auto bg-[#0f172a] text-white rounded-3xl overflow-hidden shadow-xl border border-[#2c3e50]">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-4 bg-[#1e293b]">
+      <div class="flex items-center gap-4">
+        <img src="https://i.pravatar.cc/40" class="w-10 h-10 rounded-full border-2 border-[#8DEE98]"
+          alt="Author Avatar">
+        <div>
+          <p class="text-lg font-semibold">John Doe</p>
+          <p class="text-sm text-gray-400">"Vectors 101: The Fundamentals You Need to Know"</p>
+        </div>
+      </div>
+      <button class="text-[#8DEE98] font-semibold hover:underline">Translate</button>
+    </div>
+
+    <!-- Media -->
+    <div class="relative">
+      <video controls class="w-full object-cover">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Description -->
+    <div class="px-6 py-4">
+      <h2 class="text-xl font-semibold mb-2">Title Goes Here</h2>
+      <p class="text-gray-300"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus quis neque sit amet sagittis. Donec tempus efficitur dolor, nec laoreet felis tempor non. Pellentesque leo ipsum, condimentum at scelerisque a, porta quis justo. Donec pharetra erat id lorem pretium, sed vulputate massa pulvinar. In mattis pulvinar libero id facilisis. Integer nec urna at nunc consectetur mollis ut ut diam. Aenean fringilla justo ac pellentesque sollicitudin. Aliquam erat volutpat. Aliquam ut accumsan lorem. Ut fringilla, elit efficitur iaculis fringilla, urna nunc blandit libero, id volutpat tellus diam porta eros. Curabitur vitae orci cursus, rhoncus est eget, mattis leo. Duis enim nulla, tristique et molestie ut, iaculis in purus.
+
+Ut non quam nec tellus viverra finibus vitae vitae purus. Quisque fermentum euismod quam, elementum maximus turpis fringilla vel. Cras in dui mattis, vehicula est in, blandit nulla. Ut ut tortor luctus, volutpat quam ut, tristique risus. Integer rutrum est quis ipsum rutrum, ut aliquam nulla fermentum. Nullam at ante nisi. Phasellus rutrum malesuada bibendum. Nam mollis nulla at dolor ultricies rhoncus. Praesent quis diam id orci malesuada suscipit.
+
+Nam aliquet risus nec risus efficitur porttitor. Phasellus id orci lacinia, vulputate enim non, porttitor odio. Suspendisse pellentesque commodo erat eu eleifend. In faucibus facilisis elit eu dictum. Etiam eu iaculis ante. Donec sit amet aliquet enim. Morbi pharetra dolor et tortor eleifend varius. </p>
+
+    <!-- Reactions and Rating -->
+    <div class="px-6 py-4 flex items-center justify-between border-t border-gray-700">
+      <div class="flex items-center gap-4 text-sm">
+        <button @click="likes++" class="text-green-400 focus:outline-none">👍 <span x-text="likes"></span></button>
+        <button @click="dislikes++" class="text-red-400 focus:outline-none">👎 <span x-text="dislikes"></span></button>
+      </div>
+      <div class="flex items-center gap-1 text-yellow-400">
+        <span>★★★★★</span>
+      </div>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="px-6 pb-6">
+      <textarea x-model="newComment" rows="2" placeholder="Leave a comment..."
+        class="w-full p-3 bg-[#1e293b] border border-gray-600 rounded-lg placeholder-gray-400 resize-none mb-4"></textarea>
+      <button @click="postComment" class="bg-[#8DEE98] text-[#001f3f] px-4 py-2 rounded-md font-semibold mb-4">Post
+        Comment</button>
+      <div class="space-y-2">
+        <template x-for="(comment, index) in comments" :key="index">
+          <div class="bg-[#202c3c] p-3 rounded-md text-sm" x-text="comment"></div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Quiz Toggle Button -->
+    <div class="px-6 pb-6 text-center">
+      <button @click="quizOpen = !quizOpen"
+        class="bg-[#8DEE98] text-[#001f3f] font-semibold px-6 py-2 rounded-lg shadow hover:scale-105 transition-all duration-300">
+        Give Quiz ⬇️
+      </button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div x-show="quizOpen" x-transition class="px-6 pb-8">
+      <div class="bg-[#0b1724] border border-[#8DEE98] rounded-2xl p-6 space-y-6">
+        <h2 class="text-center text-lg font-semibold text-[#8DEE98]">Test your knowledge</h2>
+
+        <template x-for="(question, index) in quiz" :key="index">
+          <div>
+            <p class="mb-3 text-white" x-text="question.question"></p>
+            <div class="grid grid-cols-2 gap-4">
+              <template x-for="(option, i) in question.options" :key="i">
+                <button
+                  :class="question.selected === i ? 'bg-[#8DEE98] text-[#001f3f] border-[#8DEE98]' : 'bg-[#1e293b] text-white border-gray-600'"
+                  class="border rounded-full py-2 text-sm transition" @click="question.selected = i">
+                  <span x-text="option"></span>
+                </button>
+              </template>
+            </div>
+          </div>
+        </template>
+
+        <div class="text-center">
+          <button @click="submitQuiz"
+            class="bg-[#8DEE98] text-[#001f3f] px-6 py-2 mt-4 rounded-xl font-semibold shadow hover:scale-105 transition-all duration-300">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Button -->
+    <div class="px-6 pb-6 text-center">
+      <button class="text-red-400 hover:underline font-semibold">Report this content as inappropriate</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('quizComponent', () => ({
+        likes: 20,
+        dislikes: 5,
+        quizOpen: false,
+        newComment: '',
+        comments: [
+          'Great Work! 🌛',
+          'Very easy to understand ❤️',
+          'Amazing content 😍'
+        ],
+        quiz: [
+          {
+            question: 'What is AI primarily used in education?',
+            options: ['Making Robots', 'Cheating in Exam', 'Make study easier', 'Making Bombs'],
+            selected: null
+          },
+          {
+            question: 'Which one is a frontend framework?',
+            options: ['Laravel', 'Vue.js', 'Node.js', 'Django'],
+            selected: null
+          },
+          {
+            question: 'What does CSS stand for?',
+            options: ['Creative Style Sheets', 'Cascading Style Sheets', 'Colorful Style Syntax', 'Coding Style Sheet'],
+            selected: null
+          }
+        ],
+        submitQuiz() {
+          const answers = this.quiz.map((q, idx) => ({
+            question: q.question,
+            selectedOption: q.options[q.selected] || 'No answer'
+          }));
+          console.log('User Answers:', answers);
+          alert('Answers submitted! Check console for details.');
+        },
+        postComment() {
+          if (this.newComment.trim() !== '') {
+            this.comments.unshift(this.newComment.trim());
+            this.newComment = '';
+          }
+        }
+      }))
+    })
+  </script>
+
+
+
+
+</body>
+
+</html>

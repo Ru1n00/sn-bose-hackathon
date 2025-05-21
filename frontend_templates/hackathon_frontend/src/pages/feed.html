@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduTech Feed</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../script/menu_toggle.js"></script>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body class="bg-[#fefcf7] font-sans text-gray-800">
+
+    <!-- Change this header with your template -->
+    <!-- Header -->
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 navbar shadow-md bg-[#070926]">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-white">Edu<span class="text-green-400">Tech</span></h1>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Home</a>
+                <div class="flex items-center group relative cursor-pointer">
+                    <span
+                        class="text-white group-hover:text-green-400 text-lg font-medium transition-colors">Categories</span>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="ml-2 w-5 h-5 text-white group-hover:text-green-400 transition-transform" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                    <div
+                        class="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 hidden group-hover:block">
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Physics</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Chemistry</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Biology</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Technology</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Innovation</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Research</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Engineering</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Mathematics</a>
+                    </div>
+                </div>
+                <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Blogs</a>
+                <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Contact Us</a>
+            </nav>
+
+            <!-- Desktop Sign Up -->
+            <button
+                class="hidden md:block px-6 py-2 bg-green-400 hover:bg-green-300 rounded-md text-[#070926] font-semibold text-lg transition-colors"
+                onclick="window.location.href='src/pages/sign_up'">Sign
+                Up</button>
+
+            <!-- Hamburger Icon (Mobile Only) -->
+            <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-6 py-4 bg-[#070926]">
+            <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Home</a>
+            <div class="relative group">
+                <span
+                    class="block text-white hover:text-green-400 text-lg font-medium mb-2 cursor-pointer">Categories</span>
+                <div class="pl-4">
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Physics</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Chemistry</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Biology</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Mathematics</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Technology</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Innovation</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Engineering</a>
+                    <a href="#" class="block text-gray-300 hover:text-green-300 text-base mb-1">Research</a>
+                </div>
+            </div>
+            <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Blogs</a>
+            <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Contact Us</a>
+            <button class="w-full mt-4 bg-green-400 hover:bg-green-300 text-[#070926] py-2 rounded-md font-semibold"
+                onclick="window.location.href='src/pages/sign_up'">Sign
+                Up</button>
+        </div>
+    </header>
+    <!-- Navigation header ends here -->
+
+
+    <!-- Hero -->
+
+    <img class="w-full" src="../assets/feed-hero/Physics.jpg" alt="">
+
+    <!-- Full Page Wrapper with Dark Futuristic Background -->
+    <div class="min-h-screen bg-[#0f172a] text-white py-10 px-4">
+
+        <!-- Main Grid -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Sidebar -->
+            <aside class="hidden lg:block bg-[#1e293b] rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-5 tracking-wide">📁 Navigation</h2>
+                <ul class="space-y-4">
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">🧭 Dashboard</a></li>
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">🎓 My Courses</a></li>
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">💬 Messages</a></li>
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">⚙️ Settings</a></li>
+                </ul>
+            </aside>
+
+            <!-- Feed -->
+            <main class="lg:col-span-3 space-y-8">
+
+                <!-- Search Bar Container -->
+                <div class="max-w-xl mx-auto mt-10">
+
+                    <!-- Search Bar -->
+                    <div
+                        class="flex items-center bg-white/5 backdrop-blur-lg border border-green-400/30 hover:shadow-2xl transition duration-300 rounded-full px-4 py-2 pr-2">
+
+                        <!-- Search Icon -->
+                        <svg class="w-5 h-5 text-green-300 mr-3" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
+                        </svg>
+
+                        <!-- Input Field -->
+                        <input type="text" placeholder="Search posts..."
+                            class="flex-grow bg-transparent outline-none text-white placeholder-green-300 text-sm" />
+
+                        <!-- Search Button -->
+                        <button
+                            class="ml-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-4 py-1.5 text-sm rounded-full font-medium hover:brightness-110 transition">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Create Post -->
+<div x-data="postForm()" class="bg-[#1e293b] rounded-2xl shadow p-6 max-w-lg mx-auto">
+  <button @click="open = !open"
+    class="w-full text-left text-gray-300 font-medium border-b border-gray-600 pb-3 hover:text-white">
+    📝 Write a post...
+  </button>
+
+  <form x-show="open" x-transition @submit.prevent="submitPost" class="mt-5 space-y-4">
+    <!-- Title -->
+    <input type="text" x-model="title" placeholder="Title" required
+      class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400" />
+
+    <!-- Main Post Description -->
+    <textarea rows="4" x-model="description" placeholder="What's on your mind?" required
+      class="w-full p-4 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400 resize-none"></textarea>
+
+    <!-- Category Dropdown -->
+    <select x-model="category" required
+      class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
+      <option value="" disabled>Select Category</option>
+      <option>Technology</option>
+      <option>Education</option>
+      <option>Health</option>
+      <option>Entertainment</option>
+      <option>Sports</option>
+      <option>Other</option>
+    </select>
+
+    <!-- Stage Dropdown -->
+    <select x-model="stage" required
+      class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
+      <option value="" disabled>Select Stage</option>
+      <option>Primary</option>
+      <option>Secondary</option>
+      <option>Higher Secondary</option>
+      <option>Undergrad</option>
+    </select>
+
+    <!-- Media & Quiz Buttons -->
+    <div class="flex justify-between items-center">
+      <div class="flex gap-4 text-sm font-medium text-[#8DEE98]">
+        <label class="cursor-pointer hover:underline flex items-center gap-1">
+          <input type="file" accept="image/*" class="hidden" @change="handleImageUpload" />
+          📷 Add Image
+        </label>
+        <label class="cursor-pointer hover:underline flex items-center gap-1">
+          <input type="file" accept="video/*" class="hidden" @change="handleVideoUpload" />
+          🎥 Add Video
+        </label>
+        <button type="button" @click="toggleQuizForm" class="hover:underline">🧠 Add Quiz</button>
+      </div>
+
+      
+    </div>
+
+    <!-- Quiz Form -->
+    <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
+      
+
+      <textarea x-model="quizQuestion" placeholder="Add your question"
+        class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input type="text" x-model="optionA" placeholder="Option A"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionB" placeholder="Option B"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionC" placeholder="Option C"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionD" placeholder="Option D"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+      </div>
+    </div>
+    <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
+      <input type="text" x-model="quizTitle" placeholder="Add title"
+        class="w-full bg-transparent border border-[#8DEE98] rounded-full text-white p-3 placeholder-gray-400 text-sm" />
+
+      <textarea x-model="quizQuestion" placeholder="Add your question"
+        class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input type="text" x-model="optionA" placeholder="Option A"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionB" placeholder="Option B"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionC" placeholder="Option C"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionD" placeholder="Option D"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+      </div>
+    </div>
+    <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
+      <input type="text" x-model="quizTitle" placeholder="Add title"
+        class="w-full bg-transparent border border-[#8DEE98] rounded-full text-white p-3 placeholder-gray-400 text-sm" />
+
+      <textarea x-model="quizQuestion" placeholder="Add your question"
+        class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input type="text" x-model="optionA" placeholder="Option A"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionB" placeholder="Option B"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionC" placeholder="Option C"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+        <input type="text" x-model="optionD" placeholder="Option D"
+          class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+      </div>
+    </div>
+
+    <!-- Preview uploaded files (optional) -->
+    <template x-if="imageName">
+      <p class="text-gray-400 text-sm mt-2">Image: <span x-text="imageName"></span></p>
+    </template>
+    <template x-if="videoName">
+      <p class="text-gray-400 text-sm mt-1">Video: <span x-text="videoName"></span></p>
+    </template>
+    <div class="flex justify-center mt-4">
+        
+  <button type="submit"
+    class="bg-[#001f3f] text-[#8DEE98] px-6 py-2 rounded-md font-semibold border border-[#8DEE98] hover:bg-opacity-90 transition">
+    Post
+  </button>
+</div>
+  </form>
+
+</div>
+
+<!-- Alpine Script -->
+<script>
+  function postForm() {
+    return {
+      open: false,
+      title: '',
+      description: '',
+      category: '',
+      stage: '',
+      imageFile: null,
+      videoFile: null,
+      imageName: '',
+      videoName: '',
+      showQuiz: false,
+      quizTitle: '',
+      quizQuestion: '',
+      optionA: '',
+      optionB: '',
+      optionC: '',
+      optionD: '',
+
+      handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+          this.imageFile = file;
+          this.imageName = file.name;
+        } else {
+          this.imageFile = null;
+          this.imageName = '';
+        }
+      },
+
+      handleVideoUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+          this.videoFile = file;
+          this.videoName = file.name;
+        } else {
+          this.videoFile = null;
+          this.videoName = '';
+        }
+      },
+
+      toggleQuizForm() {
+        this.showQuiz = !this.showQuiz;
+      },
+
+      submitPost() {
+        console.log({
+          title: this.title,
+          description: this.description,
+          category: this.category,
+          stage: this.stage,
+          imageFile: this.imageFile,
+          videoFile: this.videoFile,
+          quiz: this.showQuiz
+            ? {
+              quizTitle: this.quizTitle,
+              question: this.quizQuestion,
+              options: [this.optionA, this.optionB, this.optionC, this.optionD]
+            }
+            : null
+        });
+
+        alert('Post submitted! Check console for data.');
+
+        // Reset form
+        this.title = '';
+        this.description = '';
+        this.category = '';
+        this.stage = '';
+        this.imageFile = null;
+        this.videoFile = null;
+        this.imageName = '';
+        this.videoName = '';
+        this.open = false;
+
+        // Reset quiz
+        this.showQuiz = false;
+        this.quizTitle = '';
+        this.quizQuestion = '';
+        this.optionA = '';
+        this.optionB = '';
+        this.optionC = '';
+        this.optionD = '';
+      }
+    }
+  }
+</script>
+
+                <!-- Posts -->
+                <div
+                    class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
+                    <!-- Media Preview -->
+                    <img src="https://placehold.co/600x300" alt="Post image" class="w-full h-60 object-cover" />
+
+                    <!-- Post Content -->
+                    <div class="p-6 space-y-4">
+                        <!-- Title -->
+                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">🚀 Excited to start learning with
+                            EduTech!</h2>
+
+                        <!-- Author & Meta -->
+                        <div class="flex items-center justify-between text-sm text-gray-400">
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.pravatar.cc/40" alt="Author Avatar"
+                                    class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
+                                <span class="font-medium text-white">John Doe</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="italic">Published: May 21, 2025</p>
+                                <span
+                                    class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
+                                    🧠 Technology
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="pt-4">
+                            <a href="#"
+                                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
+                                🔍 See Full Post
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div
+                    class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
+                    <!-- Video Preview -->
+                    <div class="w-full h-60 overflow-hidden">
+                        <iframe class="w-full h-full rounded-t-2xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <!-- Post Content -->
+                    <div class="p-6 space-y-4">
+                        <!-- Title -->
+                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">📽️ Learn Networking with This
+                            Awesome Video!</h2>
+
+                        <!-- Author & Meta -->
+                        <div class="flex items-center justify-between text-sm text-gray-400">
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.pravatar.cc/40" alt="Author Avatar"
+                                    class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
+                                <span class="font-medium text-white">John Doe</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="italic">Published: May 21, 2025</p>
+                                <span
+                                    class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
+                                    🎓 Education
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="pt-4">
+                            <a href="#"
+                                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
+                                ▶️ See Full Post
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
+                    <!-- Post Content -->
+                    <div class="p-6 space-y-4">
+                        <!-- Title -->
+                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">📝 Reflections on My Learning
+                            Journey</h2>
+
+                        <!-- Author & Meta -->
+                        <div class="flex items-center justify-between text-sm text-gray-400">
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.pravatar.cc/40" alt="Author Avatar"
+                                    class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
+                                <span class="font-medium text-white">John Doe</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="italic">Published: May 21, 2025</p>
+                                <span
+                                    class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
+                                    ✍️ Personal Growth
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Text Body -->
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            Today I took a step back to reflect on how far I've come. From doubting myself in the
+                            beginning to now confidently tackling new tech stacks — it’s been a ride. Here's to the
+                            sleepless nights, the bugs, the breakthroughs, and the belief. Never stop evolving. 💡
+                        </p>
+
+                        <!-- CTA Button -->
+                        <div class="pt-4">
+                            <a href="#"
+                                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
+                                📖 See Full Post
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+</body>
+
+</html>
