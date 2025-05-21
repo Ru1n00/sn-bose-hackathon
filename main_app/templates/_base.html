@@ -5,7 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edutech</title>
+  <title>{% block title %}EduTech{% endblock %}</title>
+  
   <!-- Tailwind -->
   <link rel="stylesheet" href="{% static 'styles/main.css' %}">
   <link rel="stylesheet" href="{% static 'src/output.css' %}">
@@ -27,11 +28,14 @@
   <!-- <script src="src/script/menu_toggle.js"></script> -->
    <script src="{% static 'script/menu_toggle.js' %}"></script>
 
+   {% block styles %}
+   {% endblock styles %}
+
 </head>
 
 <body class="antialiased font-['Poppins'] bg-stone-50">
   <div class="relative w-full min-h-[75rem] bg-stone-50 overflow-hidden">
-    <div class="js-bg w-full h-[1157px] absolute left-0 top-0 bg-cover bg-center bg-no-repeat z-0"
+    <div class="js-bg w-full h-[1157px] absolute left-0 top-0 bg-cover bg-center bg-no-repeat z-0 pointer-events-none"
     ></div>
 
     <div class="hidden md:block absolute w-[120%] h-[50rem] left-[-10rem] top-[61.62rem] bg-stone-50 rounded-full">
