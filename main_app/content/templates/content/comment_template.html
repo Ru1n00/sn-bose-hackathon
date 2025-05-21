@@ -1,0 +1,8 @@
+{% for comment in comments %}
+    <div class="reply" style="margin-left: 20px;">
+        <strong>{{ comment.user.username }}</strong>: {{ comment.comment_text }}
+        <small>{{ comment.created_at }}</small>
+
+        {% include "content/comment_template.html" with comments=comment.replies.all %}
+    </div>
+{% endfor %}

@@ -5,6 +5,7 @@ from .utils import translate_text
 from .models import (
     Post,
     PostFile,
+    PostComment
 )
 
 from .forms import PostForm, PostFileFormSet
@@ -35,6 +36,10 @@ def post_detail(request, slug):
     images = files.filter(file_type__in=['jpg', 'jpeg', 'png'])
     videos = files.filter(file_type__in=['mp4', 'mkv'])
 
+    # comments
+    comments = PostComment.objects.filter(post=post, comment_parent__isnull=True).prefetch_related('replies')
+
+
     lang = request.GET.get('lang', 'en')
 
     if lang == 'bn':
@@ -48,6 +53,7 @@ def post_detail(request, slug):
         'post': post,
         'videos': videos,
         'images': images,
+        'comments': comments,
     }
     return render(request, 'content/post_detail.html', context)
 

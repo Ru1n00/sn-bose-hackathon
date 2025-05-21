@@ -135,10 +135,13 @@ class PostComment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     comment_text = models.TextField()
-    comment_parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    comment_parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['created_at']
         verbose_name_plural = "Comments"
+
+    def __str__(self):
+        return f"{self.user.email} - {self.comment_text[:20]}..."
