@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+
+from django.urls import reverse_lazy
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -148,3 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # accounts app
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Login and logout redirect URLs
+LOGIN_URL = reverse_lazy('accounts:sign_in')
+LOGIN_REDIRECT_URL = reverse_lazy('content:index')

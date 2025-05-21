@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
@@ -17,7 +19,7 @@ def index(request):
     return render(request, 'content/index.html')
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'content/post_list.html'
     context_object_name = 'posts'
@@ -27,7 +29,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
     
-class CategoryPostListView(ListView):
+class CategoryPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "content/post_list.html"
     context_object_name = "posts"
@@ -43,7 +45,7 @@ class CategoryPostListView(ListView):
         return context
 
 
-class PostSearchView(ListView):
+class PostSearchView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "content/post_search_results.html"
     context_object_name = "posts"
@@ -62,7 +64,7 @@ class PostSearchView(ListView):
         return context
 
 
-
+@login_required
 def post_detail(request, slug):
     # Fetch the post by slug
     post = get_object_or_404(Post, slug=slug)
@@ -94,7 +96,7 @@ def post_detail(request, slug):
     }
     return render(request, 'content/post_detail.html', context)
 
-
+@login_required
 def post_create(request):
     if request.method == 'POST':
         # Handle form submission
@@ -125,7 +127,7 @@ def post_create(request):
 
     return render(request, 'content/post_create.html', {'form': form, 'file_form': file_form})
 
-
+@login_required
 def post_edit(request, slug):
     # Fetch the post by slug
     post = get_object_or_404(Post, slug=slug)

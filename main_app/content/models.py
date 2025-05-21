@@ -32,7 +32,6 @@ class Category(models.Model):
 # Custom User Model
 class ContentUserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
-    full_name = models.CharField(max_length=255)
     current_streak = models.IntegerField(default=0)
     max_streak = models.IntegerField(default=0)
     last_activity = models.DateField(null=True, blank=True)  # Track last active date
@@ -51,6 +50,11 @@ class ContentUserProfile(models.Model):
     
     def __str__(self):
         return f"{self.user.email}"
+    
+
+    @property
+    def full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
     @property
     def get_contributions(self):

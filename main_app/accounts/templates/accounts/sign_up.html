@@ -1,0 +1,125 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/signup.css' %}">
+{% endblock styles %}
+
+
+{% block content %}
+
+<!--  
+    -------------
+    {{ form.email }}
+    {{ form.first_name }}
+    {{ form.last_name }}
+    {{ form.password1 }}
+    {{ form.password2 }}
+    {{ form.stage }}
+    {{ form.favorite_subject }}
+-->
+<div class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center p-4 mt-20 position-relative">
+    {% for message in messages %}
+      <div id="error-message-{{forloop.counter}}" class="err-msg bg-red-500 text-white p-4 rounded-lg shadow-md fixed top-5 right-5 transition-opacity duration-500 opacity-100 position-absolute z-50 top-0">
+          <p>{{message}}</p>
+      </div>
+    {% endfor %}
+    <div class="max-w-4xl w-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+      <!-- Left Side - Branding -->
+      <div class="md:w-1/2 bg-[#070926] text-white p-8 md:p-0 flex flex-col justify-center">
+        <div class="text-center md:text-left m-8">
+          <h1 class="text-4xl font-bold mb-2">
+            <span class="text-white">Edu</span>
+            <span class="text-green-400">Tech</span>
+          </h1>
+          <p class="text-xl text-gray-300">Your free learning partner!</p>
+        </div>
+        <div class="mt-8 hidden md:block">
+          <img src="{% static 'assets/signup.png' %}" 
+               alt="Students learning" 
+               class="rounded-lg opacity-90">
+        </div>
+      </div>
+
+      <!-- Right Side - Form -->
+      <div class="md:w-1/2 p-8 md:p-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Sign Up</h2>
+        
+        <form method="POST" action="{% url 'accounts:sign_up' %}" class="space-y-8">
+            {% csrf_token %}
+          <!-- Name Fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="id_first_name" class="block text-sm font-medium text-gray-500 mb-1">First Name</label>
+              {{ form.first_name }}
+            </div>
+            <div>
+              <label for="id_last_name" class="block text-sm font-medium text-gray-500 mb-1">Last Name</label>
+              {{ form.last_name }}
+            </div>
+          </div>
+          
+          <!-- Email -->
+          <div>
+            <label for="id_email" class="block text-sm font-medium text-gray-500 mb-1">Email</label>
+            {{ form.email }}
+          </div>
+          
+          <!-- Education Level -->
+          <div>
+            <label for="id_stage" class="block text-sm font-medium text-gray-500 mb-1">Your Education Level</label>
+            {{ form.stage }}
+          </div>
+          
+          <!-- Favorite Topic -->
+          <div>
+            <label for="id_favorite_subject" class="block text-sm font-medium text-gray-500 mb-1">Your Favorite Topic</label>
+            {{ form.favorite_subject }}
+          </div>
+          
+          <!-- Password -->
+          <div>
+            <label for="id_password1" class="block text-sm font-medium text-gray-500 mb-1">Password</label>
+            {{ form.password1 }}
+          </div>
+          
+          <!-- Confirm Password -->
+          <div>
+            <label for="id_password2" class="block text-sm font-medium text-gray-500 mb-1">Re-enter Password</label>
+            {{ form.password2 }}
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" 
+                  class="w-full bg-[#070926] hover:bg-[#0a0e33] text-white font-bold py-3 px-6 rounded-lg transition duration-200 mt-8">
+            Sign Up
+          </button>
+        </form>
+        
+        <!-- Sign In Link -->
+        <div class="mt-6 text-center">
+          <span class="text-gray-500">Already have an account?</span>
+          <a href="/src/pages/sign_in.html" class="ml-2 text-green-500 font-semibold hover:underline">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const errorMessages = document.querySelectorAll('.err-msg');
+        errorMessages.forEach((message) => {
+            message.classList.add('opacity-0');
+            setTimeout(() => {
+                message.remove();
+            }, 3000); // Adjust the timing to match the CSS transition duration
+        });
+    </script>
+{% endblock %}
