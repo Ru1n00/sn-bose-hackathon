@@ -62,6 +62,11 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = "Posts"
+    
+
     def __str__(self):
         return self.title
     
@@ -133,3 +138,7 @@ class PostComment(models.Model):
     comment_parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = "Comments"
