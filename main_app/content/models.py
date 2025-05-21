@@ -50,6 +50,11 @@ class ContentUserProfile(models.Model):
     
     def __str__(self):
         return f"{self.user.email}"
+    
+
+    @property
+    def full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
     @property
     def get_contributions(self):
