@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Survey - Newton's Laws</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            survey: {
+              dark: '#0f172a',
+              accent: '#10b981',
+              card: '#1e293b',
+              button: '#10b981',
+              buttonHover: '#059669'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .survey-button {
+      transition: all 0.2s ease;
+    }
+    
+    .survey-button:hover {
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body class="bg-survey-dark text-white min-h-screen">
+  <div class="container mx-auto px-4 py-12 max-w-2xl">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-semibold mb-2">Give Your Valuable Opinion on Our</h1>
+      <h1 class="text-3xl md:text-4xl font-semibold">Recently Going <span class="text-survey-accent">Surveys</span></h1>
+    </header>
+
+    <!-- Survey Form -->
+    <div class="bg-survey-card rounded-xl p-6 md:p-8 shadow-lg">
+      <h2 class="text-xl font-semibold mb-6">Students' Understanding and Application of <span class="text-survey-accent">Newton's Laws</span> in Real Life</h2>
+      
+      <form id="surveyForm" class="space-y-8">
+        <!-- Question 1 -->
+        <div class="space-y-4">
+          <p class="text-gray-300">Q1: How well do you understand Newton's First Law of Motion?</p>
+          <div class="grid grid-cols-2 gap-4" data-question="q1">
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="very-well">Very well</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="slightly">Slightly</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="somewhat">Somewhat</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="not-at-all">Not at all</button>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="space-y-4">
+          <p class="text-gray-300">Q2: Have you ever applied Newton's Laws to understand a real-world situation (e.g., car stopping, sports)?</p>
+          <div class="grid grid-cols-2 gap-4" data-question="q2">
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="frequently">Frequently</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="occasionally">Occasionally</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="rarely">Rarely</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="never">Never</button>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="space-y-4">
+          <p class="text-gray-300">Q3: How often are Newton's Laws discussed in practical lab sessions?</p>
+          <div class="grid grid-cols-2 gap-4" data-question="q3">
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="always">Always</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="often">Often</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="rarely">Rarely</button>
+            <button type="button" class="survey-button bg-survey-dark hover:bg-survey-card border border-gray-600 rounded-lg p-3 text-center" data-value="never">Never</button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center pt-4">
+          <button type="submit" class="survey-button bg-survey-accent hover:bg-survey-buttonHover text-white px-8 py-3 rounded-lg font-medium text-lg">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Store survey responses
+    const surveyResponses = {
+      q1: null,
+      q2: null,
+      q3: null
+    };
+
+    // Handle button clicks for each question
+    document.querySelectorAll('[data-question]').forEach(questionGroup => {
+      const questionId = questionGroup.dataset.question;
+      const buttons = questionGroup.querySelectorAll('button');
+
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active state from all buttons in the group
+          buttons.forEach(btn => {
+            btn.classList.remove('bg-survey-accent', 'border-survey-accent');
+            btn.classList.add('bg-survey-dark', 'border-gray-600');
+          });
+
+          // Add active state to clicked button
+          button.classList.remove('bg-survey-dark', 'border-gray-600');
+          button.classList.add('bg-survey-accent', 'border-survey-accent');
+
+          // Store the response
+          surveyResponses[questionId] = button.dataset.value;
+          console.log('Current responses:', surveyResponses);
+        });
+      });
+    });
+
+    // Handle form submission
+    document.getElementById('surveyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      console.log('Survey submitted with responses:', surveyResponses);
+      // Here you can add code to send the responses to your backend
+    });
+  </script>
+</body>
+</html>
