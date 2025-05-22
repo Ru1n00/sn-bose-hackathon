@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('quiz.urls')),
     path('', include('dashboard.urls')),
+    path('', include('survey.urls')),
 ] 
 
 if DEBUG:
