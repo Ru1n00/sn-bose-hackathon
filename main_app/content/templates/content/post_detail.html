@@ -97,9 +97,9 @@
 
     <!-- Reactions and Rating -->
     <div class="px-6 py-4 flex items-center justify-between border-t border-gray-700">
-      <div class="flex items-center gap-4 text-sm">
-        <a href="" class="text-green-400 focus:outline-none">👍 <span>{{ post.upvotes }}</span></a>
-        <a href="" class="text-red-400 focus:outline-none">👎 <span>{{ post.downvotes }}</span></a>
+      <div class="flex items-center gap-2 text-sm">
+        <a href="{% url 'content:post_upvote' post.slug %}" class="text-green-400 focus:outline-none">👍</a> <span>{{ post.upvotes }}</span>
+        <a href="{% url 'content:post_downvote' post.slug %}" class="text-red-400 focus:outline-none">👎</a> <span>{{ post.downvotes }}</span>
       </div>
       <div class="flex items-center gap-1 text-yellow-400">
         <span>★★★★★</span>

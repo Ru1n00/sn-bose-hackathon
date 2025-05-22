@@ -226,3 +226,19 @@ def make_comment(request):
         )
 
         return redirect("content:post_detail", slug=post.slug)
+    
+
+@login_required
+def post_upvote(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    post.upvotes += 1
+    post.save()
+    return redirect("content:post_detail", slug=post.slug)
+
+
+@login_required
+def post_downvote(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    post.downvotes += 1
+    post.save()
+    return redirect("content:post_detail", slug=post.slug)
