@@ -1,0 +1,356 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block styles %}
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+{% endblock styles %}
+
+{% block content %}
+<div class="bg-gray-900 text-gray-100 mt-[75px]">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden md:flex flex-col w-64 bg-gray-950 border-r border-gray-800">
+      <div class="p-4">
+        <h1 class="text-xl font-bold text-white flex items-center">
+          <span class="bg-blue-500 w-8 h-8 rounded-md flex items-center justify-center mr-2">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          </span>
+          Dashboard
+        </h1>
+      </div>
+      
+      <nav class="mt-8">
+        <div class="px-4 mb-2 text-xs font-semibold text-gray-400 uppercase">Main</div>
+        <a href="#" class="flex items-center px-4 py-3 text-sm bg-gradient-to-r from-blue-600/40 to-blue-600/0 border-l-2 border-blue-500 text-blue-400">
+          <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-400 hover:bg-gray-900 hover:text-gray-100">
+          <i data-lucide="user" class="w-5 h-5 mr-3"></i>
+          Profile
+        </a>
+        <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-400 hover:bg-gray-900 hover:text-gray-100">
+          <i data-lucide="trophy" class="w-5 h-5 mr-3"></i>
+          Leaderboard
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden fixed top-4 right-4 z-20">
+      <button class="p-2 rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-10 bg-gray-900/80 backdrop-blur-sm md:hidden">
+      <div class="fixed inset-y-0 right-0 w-full max-w-xs bg-gray-950 p-6">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-xl font-bold text-white">Menu</h2>
+          <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="p-2 rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <nav class="space-y-1">
+          <a href="#" class="flex items-center px-4 py-3 text-sm bg-blue-600/20 text-blue-400 rounded-lg">
+            <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>
+            Dashboard
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg">
+            <i data-lucide="user" class="w-5 h-5 mr-3"></i>
+            Profile
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg">
+            <i data-lucide="trophy" class="w-5 h-5 mr-3"></i>
+            Leaderboard
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <div class="p-6 max-w-7xl mx-auto space-y-6">
+        <!-- Welcome Card -->
+        <div class="relative bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl p-6 overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <h1 class="text-3xl font-bold text-white">Welcome to your Dashboard <span class="text-green-400">{{ user_profile.full_name }}</span></h1>
+            <p class="mt-2 text-blue-100 max-w-2xl">Here you can monitor your regular activity, see your position on leaderboard and follow your streak regularity.</p>
+            
+            <div class="mt-6 flex flex-wrap gap-4">
+              <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 flex items-center">
+                <i data-lucide="user" class="w-4 h-4 text-blue-300 mr-2"></i>
+                <span class="text-blue-100">Profile Complete</span>
+                <span class="ml-2 text-white font-semibold">87%</span>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 flex items-center">
+                <i data-lucide="bar-chart-3" class="w-4 h-4 text-green-300 mr-2"></i>
+                <span class="text-blue-100">Activity Level</span>
+                <span class="ml-2 text-white font-semibold">High</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile & Streak Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Profile Card -->
+          <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+            <div class="p-6">
+              <div class="flex items-center">
+                <div class="relative">
+                  <div class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center">
+                    <span class="text-white text-2xl font-bold">JD</span>
+                  </div>
+                  <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-2 border-gray-800"></div>
+                </div>
+                <div class="ml-4">
+                  <h2 class="text-xl font-semibold text-green-400">{{ user_profile.full_name }}</h2>
+                  <p class="text-sm text-gray-400">{{ user_profile.stage }} student</p>
+                </div>
+              </div>
+              
+              <div class="mt-6 space-y-4">
+                <div class="flex items-center text-gray-300">
+                  <i data-lucide="mail" class="w-4 h-4 mr-3 text-gray-400"></i>
+                  <span>{{ user_profile.user.email }}</span>
+                </div>
+                <div class="flex items-center text-gray-300">
+                  <i data-lucide="book" class="w-4 h-4 mr-3 text-gray-400"></i>
+                  <span>Favorite Topic: {{ user_profile.favorite_subject }}</span>
+                </div>
+                <div class="flex items-center text-gray-300">
+                  <i data-lucide="calendar" class="w-4 h-4 mr-3 text-gray-400"></i>
+                  <span>Joining Date: {{ request.user.date_joined|date:"F j, Y" }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Streak Info -->
+          <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-white mb-4">Streak Statistics</h3>
+              
+              <div class="grid grid-cols-2 gap-6">
+                <div class="bg-gray-900/50 rounded-xl p-4">
+                  <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-400">Current Streak</p>
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                      <i data-lucide="clock" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                  </div>
+                  <p class="text-2xl font-bold text-green-400 mt-2">{{ user_profile.current_streak }} Days</p>
+                  <p class="text-xs text-gray-500 mt-1">+3 days from last week</p>
+                </div>
+                
+                <div class="bg-gray-900/50 rounded-xl p-4">
+                  <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-400">Max Streak</p>
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+                      <i data-lucide="calendar" class="w-4 h-4 text-indigo-400"></i>
+                    </div>
+                  </div>
+                  <p class="text-2xl font-bold text-green-400 mt-2">{{ user_profile.max_streak }} Days</p>
+                  <p class="text-xs text-gray-500 mt-1">Achieved on Jun 15, 2025</p>
+                </div>
+              </div>
+              
+              <div class="mt-6">
+                <div class="w-full bg-gray-700 h-3 rounded-full overflow-hidden">
+                  <div class="bg-gradient-to-r from-blue-500 to-green-500 h-full rounded-full" style="width:{{ streak_target_percentage }}%"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-xs text-gray-400">
+                  <span>Current: {{ user_profile.current_streak }} days</span>
+                  <span>Target: {{ user_profile.max_streak|add:10}} days</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+              <div class="flex items-center">
+                <i data-lucide="trophy" class="text-yellow-400 mr-2"></i>
+                <h3 class="text-lg font-semibold text-white">Leader Board</h3>
+              </div>
+              <button class="text-sm text-blue-400 hover:text-blue-300 flex items-center">
+                View All
+                <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+              </button>
+            </div>
+            
+            <div class="space-y-3">
+              <!-- Other Users -->
+              {% for user in leaderboard_users %}
+                {% if user.id != request.user.id %}
+                <div class="flex items-center p-3 rounded-xl bg-gray-900/50 hover:bg-gray-900/80">
+                {% else %}
+                <div class="flex items-center p-3 rounded-xl bg-blue-900/30 border border-blue-800">
+                {% endif %}
+                    <div class="w-7 h-7 rounded-full bg-gray-400 flex items-center justify-center mr-3">
+                    <span class="text-xs font-bold text-gray-900">2</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mr-3">
+                    <span class="text-white text-xs font-bold">JS</span>
+                    </div>
+                    <div class="flex-1">
+                    <p class="font-semibold text-gray-200">{{ user.contentuserprofile.full_name }}</p>
+                    <p class="text-xs text-gray-400">Expert in {{ user.contentuserprofile.favorite_subject }}</p>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center">
+                    <span class="font-bold text-gray-300">{{ user.total_points }}</span>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Surveys -->
+          <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center mr-2">
+                    <i data-lucide="clipboard" class="w-4 h-4 text-blue-400"></i>
+                  </div>
+                  <h4 class="font-semibold text-white">Your Surveys</h4>
+                </div>
+                <button class="text-sm text-blue-400 hover:text-blue-300 flex items-center">
+                  All
+                  <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </button>
+              </div>
+              
+              <div class="space-y-3 mt-4">
+                <div class="bg-gray-900/50 p-3 rounded-lg hover:bg-gray-900 transition-colors duration-150">
+                  <div class="flex items-center">
+                    <span class="w-6 h-6 rounded-full bg-blue-900/50 flex items-center justify-center text-xs text-blue-300 mr-3">1</span>
+                    <p class="text-sm text-gray-300">Understanding Public Opinion: A General Survey</p>
+                  </div>
+                </div>
+                <div class="bg-gray-900/50 p-3 rounded-lg hover:bg-gray-900 transition-colors duration-150">
+                  <div class="flex items-center">
+                    <span class="w-6 h-6 rounded-full bg-blue-900/50 flex items-center justify-center text-xs text-blue-300 mr-3">2</span>
+                    <p class="text-sm text-gray-300">Student Satisfaction Survey 2025</p>
+                  </div>
+                </div>
+                <div class="bg-gray-900/50 p-3 rounded-lg hover:bg-gray-900 transition-colors duration-150">
+                  <div class="flex items-center">
+                    <span class="w-6 h-6 rounded-full bg-blue-900/50 flex items-center justify-center text-xs text-blue-300 mr-3">3</span>
+                    <p class="text-sm text-gray-300">Academic Performance Evaluation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Posts -->
+          <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center mr-2">
+                    <i data-lucide="file-text" class="w-4 h-4 text-green-400"></i>
+                  </div>
+                  <h4 class="font-semibold text-white">Your Posts</h4>
+                </div>
+                <button class="text-sm text-green-400 hover:text-green-300 flex items-center">
+                  All
+                  <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </button>
+              </div>
+              
+              <div class="space-y-3 mt-4">
+                {% for post in posts %}
+                <div class="bg-gray-900/50 p-3 rounded-lg hover:bg-gray-900 transition-colors duration-150">
+                  <div class="flex items-center">
+                    <span class="w-6 h-6 rounded-full bg-green-900/50 flex items-center justify-center text-xs text-green-300 mr-3">{{ forloop.counter}}</span>
+                    <p class="text-sm text-gray-300">{{ post.title }}</p>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contribution Section -->
+        <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center mr-2">
+                  <i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">Your Contribution</h3>
+              </div>
+              <div class="bg-green-900/30 text-green-400 px-2 py-1 rounded-lg text-xs flex items-center">
+                <i data-lucide="arrow-up" class="w-3 h-3 mr-1"></i>
+                15%
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-gray-900/50 rounded-xl p-4">
+                <p class="text-sm text-gray-400">Total Points</p>
+                <div class="flex items-end mt-2">
+                  <p class="text-2xl font-bold text-white">{{ user_total_points }}</p>
+                  <div class="ml-2 mb-1 bg-green-900/30 text-green-400 px-2 py-0.5 rounded text-xs">
+                    +12
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">this month</p>
+              </div>
+              
+              <div class="bg-gray-900/50 rounded-xl p-4">
+                <p class="text-sm text-gray-400">Posts Created</p>
+                <div class="flex items-end mt-2">
+                  <p class="text-2xl font-bold text-white">{{ posts_count }}</p>
+                  <div class="ml-2 mb-1 bg-green-900/30 text-green-400 px-2 py-0.5 rounded text-xs">
+                    +3
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">this month</p>
+              </div>
+              
+              <div class="bg-gray-900/50 rounded-xl p-4">
+                <p class="text-sm text-gray-400">Surveys Completed</p>
+                <div class="flex items-end mt-2">
+                  <p class="text-2xl font-bold text-white">16</p>
+                  <div class="ml-2 mb-1 bg-green-900/30 text-green-400 px-2 py-0.5 rounded text-xs">
+                    +5
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">this month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'script/remove_circle.js' %}"></script>
+{% endblock scripts %}

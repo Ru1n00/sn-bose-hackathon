@@ -74,16 +74,16 @@
                     <form x-show="open" x-transition method="POST" action="{% url 'content:post_list' %}" enctype="multipart/form-data"  class="mt-5 space-y-4">
                         {% csrf_token %}
                         <!-- Title -->
-                        <input type="text" id="id_title" name="title" x-model="title" placeholder="Title" maxlength="255" required
+                        <input type="text" id="id_title" name="title"placeholder="Title" maxlength="255" required
                         class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400" />
 
                         <!-- Main Post Description -->
                         <textarea rows="4" id="id_description" name="description"
-                        x-model="description" placeholder="What's on your mind?" required
+                         placeholder="What's on your mind?" required
                         class="w-full p-4 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400 resize-none"></textarea>
 
                         <!-- Category Dropdown -->
-                        <select id="id_category" name="category" x-model="category" required
+                        <select id="id_category" name="category" required
                             class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
                             {% for option in form.category.field.choices %}
                                 <{% if forloop.counter == 1 %}
@@ -95,7 +95,7 @@
                         </select>
 
                         <!-- Stage Dropdown -->
-                        <select id="id_stage" name="stage" x-model="stage" required
+                        <select id="id_stage" name="stage" required
                         class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
             
                             {% for option in form.stage.field.choices %}
@@ -131,7 +131,7 @@
                                 class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
 
                             <div class="grid grid-cols-2 gap-3">
-                                <input type="text" name="option_a[]" required placeholder="Option A"
+                                <input type="text" name="option_a[]" placeholder="Option A"
                                 class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
                                 <input type="text" name="option_b[]" placeholder="Option B"
                                 class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />

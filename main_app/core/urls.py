@@ -24,6 +24,7 @@ from core.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('', include('pwa.urls')),
     path('', include('content.urls')),
     path('', include('accounts.urls')),
     path('', include('quiz.urls')),
