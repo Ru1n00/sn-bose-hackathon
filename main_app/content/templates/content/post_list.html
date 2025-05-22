@@ -226,127 +226,63 @@
 
 
                 <!-- Posts -->
+                {% for post in posts %}
                 <div
                     class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
                     <!-- Media Preview -->
-                    <img src="https://placehold.co/600x300" alt="Post image" class="w-full h-60 object-cover" />
+
+                    {% with post.postfile_set.first as first_file %}
+                        {% if first_file %}
+                            {% if first_file.file_type in "jpg,jpeg,png,gif" %}
+                                <img src="{{ first_file.file.url }}" alt="Post Image" class="w-full h-60 object-cover" />
+                            {% elif first_file.file_type in "mp4,mov,avi" %}
+                                <div class="w-full h-60 overflow-hidden">
+                                    <video controls class="w-full h-full rounded-t-2xl">
+                                        <source src="{{ first_file.file.url }}" type="video/{{ first_file.file_type }}">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            {% else %}
+                                <p>Unsupported file type: {{ first_file.file_type }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endwith %}
 
                     <!-- Post Content -->
                     <div class="p-6 space-y-4">
                         <!-- Title -->
-                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">🚀 Excited to start learning with
-                            EduTech!</h2>
+                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">🚀 {{ post.title }}</h2>
 
                         <!-- Author & Meta -->
                         <div class="flex items-center justify-between text-sm text-gray-400">
                             <div class="flex items-center gap-3">
                                 <img src="https://i.pravatar.cc/40" alt="Author Avatar"
                                     class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
-                                <span class="font-medium text-white">John Doe</span>
+                                <span class="font-medium text-white">{{ post.post_user.contentuserprofile.full_name }}</span>
                             </div>
                             <div class="text-right">
-                                <p class="italic">Published: May 21, 2025</p>
+                                <p class="italic">Published: {{ post.created_at|date:"F j, Y" }}</p>
                                 <span
                                     class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
-                                    🧠 Technology
+                                    🧠 {{ post.category.title }}
                                 </span>
                             </div>
                         </div>
+                        
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            T{{ post.description|truncatechars:200 }} 💡
+                        </p>
 
                         <!-- CTA Button -->
                         <div class="pt-4">
-                            <a href="#"
+                            <a href="{% url 'content:post_detail' post.slug %}"
                                 class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
                                 🔍 See Full Post
                             </a>
                         </div>
                     </div>
                 </div>
-
-
-                <div
-                    class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
-                    <!-- Video Preview -->
-                    <div class="w-full h-60 overflow-hidden">
-                        <iframe class="w-full h-full rounded-t-2xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-
-                    <!-- Post Content -->
-                    <div class="p-6 space-y-4">
-                        <!-- Title -->
-                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">📽️ Learn Networking with This
-                            Awesome Video!</h2>
-
-                        <!-- Author & Meta -->
-                        <div class="flex items-center justify-between text-sm text-gray-400">
-                            <div class="flex items-center gap-3">
-                                <img src="https://i.pravatar.cc/40" alt="Author Avatar"
-                                    class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
-                                <span class="font-medium text-white">John Doe</span>
-                            </div>
-                            <div class="text-right">
-                                <p class="italic">Published: May 21, 2025</p>
-                                <span
-                                    class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
-                                    🎓 Education
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- CTA Button -->
-                        <div class="pt-4">
-                            <a href="#"
-                                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
-                                ▶️ See Full Post
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
-                    <!-- Post Content -->
-                    <div class="p-6 space-y-4">
-                        <!-- Title -->
-                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">📝 Reflections on My Learning
-                            Journey</h2>
-
-                        <!-- Author & Meta -->
-                        <div class="flex items-center justify-between text-sm text-gray-400">
-                            <div class="flex items-center gap-3">
-                                <img src="https://i.pravatar.cc/40" alt="Author Avatar"
-                                    class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
-                                <span class="font-medium text-white">John Doe</span>
-                            </div>
-                            <div class="text-right">
-                                <p class="italic">Published: May 21, 2025</p>
-                                <span
-                                    class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
-                                    ✍️ Personal Growth
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Text Body -->
-                        <p class="text-gray-300 text-base leading-relaxed">
-                            Today I took a step back to reflect on how far I've come. From doubting myself in the
-                            beginning to now confidently tackling new tech stacks — it’s been a ride. Here's to the
-                            sleepless nights, the bugs, the breakthroughs, and the belief. Never stop evolving. 💡
-                        </p>
-
-                        <!-- CTA Button -->
-                        <div class="pt-4">
-                            <a href="#"
-                                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
-                                📖 See Full Post
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </main>
         </div>
     </div>
