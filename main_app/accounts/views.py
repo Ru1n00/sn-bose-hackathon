@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import is_valid_path
 from urllib.parse import urlparse
@@ -58,3 +59,14 @@ def sign_up(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/sign_up.html', {'form': form})
+
+
+@login_required
+def sign_out(request):
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, "You have been logged out successfully.")
+        return redirect('accounts:sign_in')
+    else:
+        messages.info(request, "You are not logged in.")
+        return redirect('accounts:sign_in')
