@@ -129,7 +129,7 @@
     </div>
 
     <!-- Quiz Toggle Button -->
-    {% if request.user != post.post_user %}
+    {% if request.user != post.post_user and post.quiz_set.all %}
       <div class="px-6 pb-6 text-center">
         <button @click="quizOpen = !quizOpen"
           class="bg-[#8DEE98] text-[#001f3f] font-semibold px-6 py-2 rounded-lg shadow hover:scale-105 transition-all duration-300">
