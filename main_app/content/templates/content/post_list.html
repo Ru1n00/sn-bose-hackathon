@@ -28,10 +28,10 @@
             <aside class="hidden lg:block bg-[#1e293b] rounded-2xl shadow-lg p-6">
                 <h2 class="text-xl font-semibold text-white mb-5 tracking-wide">📁 Navigation</h2>
                 <ul class="space-y-4">
-                    <li><a href="#" class="block hover:text-[#8DEE98] transition">🧭 Dashboard</a></li>
-                    <li><a href="#" class="block hover:text-[#8DEE98] transition">🎓 My Courses</a></li>
+                    <li><a href="{% url 'dashboard:dashboard' %}" class="block hover:text-[#8DEE98] transition">🧭 Dashboard</a></li>
+                    <li><a href="{% url 'survey:survey_list' %}" class="block hover:text-[#8DEE98] transition">🎓 Surveys</a></li>
                     <li><a href="#" class="block hover:text-[#8DEE98] transition">💬 Messages</a></li>
-                    <li><a href="#" class="block hover:text-[#8DEE98] transition">⚙️ Settings</a></li>
+                    <li><a href="{% url 'dashboard:dashboard' %}" class="block hover:text-[#8DEE98] transition">⚙️ Settings</a></li>
                 </ul>
             </aside>
 

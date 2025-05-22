@@ -31,7 +31,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-4@#&*j1!$@^@!3g5z6v2x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+
+print("DEBUG:", DEBUG)
 
 
 # Application definition
@@ -54,8 +56,8 @@ INSTALLED_APPS = [
     
     # Third-party apps
     'django_cleanup.apps.CleanupConfig',
-    'pwa',
-    'django_browser_reload',  # For django-browser-reload
+    # 'pwa',
+    # 'django_browser_reload',  # For django-browser-reload
 
 ]
 
@@ -68,7 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',  # For django-browser-reload
+    # 'django_browser_reload.middleware.BrowserReloadMiddleware',  # For django-browser-reload
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -143,13 +145,17 @@ if DEBUG:
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STORAGES = {
-    # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+# STORAGES = {
+#     # ...
+#     "default": {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+#     },
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
 
 # Media files
 MEDIA_URL = '/media/'
@@ -170,49 +176,85 @@ LOGIN_URL = reverse_lazy('accounts:sign_in')
 LOGIN_REDIRECT_URL = reverse_lazy('content:index')
 
 
-# pwa settings
-PWA_APP_NAME = 'Edutech'
-PWA_APP_DESCRIPTION = "Learn science and technology with us"
-PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'any'
-PWA_APP_START_URL = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
-PWA_APP_ICONS = [
-    {
-        'src': '/static/assets/join.png',
-        'sizes': '160x160'
-    }
-]
-PWA_APP_ICONS_APPLE = [
-    {
-        'src': '/static/assets/join.png',
-        'sizes': '160x160'
-    }
-]
-PWA_APP_SPLASH_SCREEN = [
-    {
-        'src': '/static/images/icons/splash-640x1136.png',
-        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-    }
-]
-PWA_APP_DIR = 'ltr'
-PWA_APP_LANG = 'en-US'
-PWA_APP_SHORTCUTS = [
-    {
-        'name': 'Shortcut',
-        'url': '/target',
-        'description': 'Shortcut to a page in my application'
-    }
-]
-PWA_APP_SCREENSHOTS = [
-    {
-      'src': '/static/images/icons/splash-750x1334.png',
-      'sizes': '750x1334',
-      "type": "image/png"
-    }
-]
+# # pwa settings
+# PWA_APP_NAME = 'Edutech'
+# PWA_APP_DESCRIPTION = "Learn science and technology with us"
+# PWA_APP_THEME_COLOR = '#0A0302'
+# PWA_APP_BACKGROUND_COLOR = '#ffffff'
+# PWA_APP_DISPLAY = 'standalone'
+# PWA_APP_SCOPE = '/'
+# PWA_APP_ORIENTATION = 'any'
+# PWA_APP_START_URL = '/'
+# PWA_APP_STATUS_BAR_COLOR = 'default'
+# PWA_APP_ICONS = [
+#     {
+#         'src': '/static/assets/join.png',
+#         'sizes': '160x160'
+#     }
+# ]
+# PWA_APP_ICONS_APPLE = [
+#     {
+#         'src': '/static/assets/join.png',
+#         'sizes': '160x160'
+#     }
+# ]
+# PWA_APP_SPLASH_SCREEN = [
+#     {
+#         'src': '/static/images/icons/splash-640x1136.png',
+#         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+#     }
+# ]
+# PWA_APP_DIR = 'ltr'
+# PWA_APP_LANG = 'en-US'
+# PWA_APP_SHORTCUTS = [
+#     {
+#         'name': 'Shortcut',
+#         'url': '/target',
+#         'description': 'Shortcut to a page in my application'
+#     }
+# ]
+# PWA_APP_SCREENSHOTS = [
+#     {
+#       'src': '/static/images/icons/splash-750x1334.png',
+#       'sizes': '750x1334',
+#       "type": "image/png"
+#     }
+# ]
 
 PWA_APP_DEBUG_MODE = DEBUG
+
+
+# proudction settings
+if not DEBUG:
+    # Use WhiteNoise to serve static files in production
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # SSL_REDIRECT_ENABLED = True
+    # SECURE_SSL_REDIRECT = True
+    # CSRF_COOKIE_SECURE = True
+    # SESSION_COOKIE_SECURE = True
+    # Add any other production settings here
+
+
+# settings.py
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_errors.log'), # Path to your log file
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

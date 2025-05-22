@@ -123,7 +123,7 @@ class PostListView(LoginRequiredMixin, ListView, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["category"] = self.category
+        # context["category"] = self.category
         context["form"] = self.get_form(self.form_class)
         return context
     
