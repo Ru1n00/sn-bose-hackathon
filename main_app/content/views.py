@@ -294,6 +294,11 @@ def make_comment(request):
             comment_parent_id=comment_parent_id if comment_parent_id else None,
         )
 
+        # update user streak
+        user_profile = request.user.contentuserprofile
+        user_profile.update_streak()
+
+        messages.success(request, "Comment added successfully!")
         return redirect("content:post_detail", slug=post.slug)
     
 
