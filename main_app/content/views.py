@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, FormView
 from django.contrib import messages
@@ -13,7 +13,7 @@ from .models import (
     Category,
 )
 
-from quiz.models import Quiz, QuizOption
+from quiz.models import Quiz, QuizOption, QuizAnswer
 
 from .forms import PostForm, PostFileFormSet
 
@@ -176,9 +176,23 @@ def post_detail(request, slug):
     # Fetch the post by slug
 
     post = get_object_or_404(
-        Post.objects.select_related("category").prefetch_related("postfile_set", "postcomment_set").order_by("-created_at"),
+        Post.objects.select_related("category").prefetch_related("postfile_set", "postcomment_set", "quiz_set__quizoption_set", "quiz_set__quizanswer_set").order_by("-created_at"),
         slug=slug)
 
+
+    # check if answers are already submitted
+    user_has_taken_quiz = QuizAnswer.objects.filter(user=request.user, quiz__post=post).exists()
+
+    # Calculate total score efficiently
+    quiz_answers = QuizAnswer.objects.filter(user=request.user, quiz__post=post).aggregate(
+        correct_count=Count("id", filter=Q(is_correct=True))
+    )
+
+    total_score = quiz_answers["correct_count"] * 10
+
+    full_mark = len(Quiz.objects.filter(post=post)) * 10
+
+    user_answers = QuizAnswer.objects.filter(user=request.user, quiz__post=post).select_related("quiz")
 
     lang = request.GET.get('lang', 'en')
 
@@ -191,6 +205,10 @@ def post_detail(request, slug):
 
     context = {
         'post': post,
+        'user_has_taken_quiz': user_has_taken_quiz,
+        'total_score': total_score,
+        'full_mark': full_mark,
+        'user_answers': user_answers,
     }
     return render(request, 'content/post_detail.html', context)
 

@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
+{% load custom_filters %}
 {% comment %} <div>
     <h1>{{ post.title }}</h1>
     
@@ -128,41 +129,87 @@
     </div>
 
     <!-- Quiz Toggle Button -->
-    <div class="px-6 pb-6 text-center">
-      <button @click="quizOpen = !quizOpen"
-        class="bg-[#8DEE98] text-[#001f3f] font-semibold px-6 py-2 rounded-lg shadow hover:scale-105 transition-all duration-300">
-        Give Quiz ⬇️
-      </button>
-    </div>
-
-    <!-- Quiz Section -->
-    <div x-show="quizOpen" x-transition class="px-6 pb-8">
-      <div class="bg-[#0b1724] border border-[#8DEE98] rounded-2xl p-6 space-y-6">
-        <h2 class="text-center text-lg font-semibold text-[#8DEE98]">Test your knowledge</h2>
-
-        <template x-for="(question, index) in quiz" :key="index">
-          <div>
-            <p class="mb-3 text-white" x-text="question.question"></p>
-            <div class="grid grid-cols-2 gap-4">
-              <template x-for="(option, i) in question.options" :key="i">
-                <button
-                  :class="question.selected === i ? 'bg-[#8DEE98] text-[#001f3f] border-[#8DEE98]' : 'bg-[#1e293b] text-white border-gray-600'"
-                  class="border rounded-full py-2 text-sm transition" @click="question.selected = i">
-                  <span x-text="option"></span>
-                </button>
-              </template>
-            </div>
-          </div>
-        </template>
-
-        <div class="text-center">
-          <button @click="submitQuiz"
-            class="bg-[#8DEE98] text-[#001f3f] px-6 py-2 mt-4 rounded-xl font-semibold shadow hover:scale-105 transition-all duration-300">
-            Submit
-          </button>
-        </div>
+    {% if request.user != post.post_user %}
+      <div class="px-6 pb-6 text-center">
+        <button @click="quizOpen = !quizOpen"
+          class="bg-[#8DEE98] text-[#001f3f] font-semibold px-6 py-2 rounded-lg shadow hover:scale-105 transition-all duration-300">
+          Give Quiz ⬇️
+        </button>
       </div>
-    </div>
+
+      <!-- Quiz Section -->
+      <div x-show="quizOpen" x-transition class="px-6 pb-8">
+        {% if user_has_taken_quiz %}
+          <div class="bg-[#0f172a] border border-[#8DEE98] rounded-2xl p-6 space-y-6">
+            <h2 class="text-center text-lg font-semibold text-[#8DEE98]">Your Score: {{ total_score }} / {{ full_mark }}</h2>
+            <p class="text-center text-gray-300">You have already taken this quiz.</p>
+
+            {% for quiz in post.quiz_set.all %}
+              <h3>{{ quiz.question }}</h3>
+
+              <!-- Display Correct Answer -->
+              <p class="text-green-500">Correct Answer: {{ quiz.quizoption_set.first.answer }}</p>
+
+              <!-- Display User's Answer -->
+              {% with user_answers|get_answer:quiz.id as user_answer %}
+                  {% if user_answer %}
+                      <p class="{% if user_answer.selected_option == quiz.quizoption_set.first.answer %} text-green-500 {% else %} text-red-500 {% endif %}">
+                          Your Answer: {{ user_answer.selected_option }}
+                      </p>
+                  {% else %}
+                      <p class="text-gray-500">You haven't answered this quiz yet.</p>
+                  {% endif %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <form method="POST" action="{% url 'quiz:submit_quiz_answer' post.slug %}" class="bg-[#0b1724] border border-[#8DEE98] rounded-2xl p-6 space-y-6">
+            {% csrf_token %}
+            <h2 class="text-center text-lg font-semibold text-[#8DEE98]">Test your knowledge</h2>
+            {% for quiz in post.quiz_set.all %}
+              <div class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
+                  <p class="mb-3 text-white">{{ quiz.question }}</p>
+                  <div class="grid grid-cols-2 gap-4">
+                      {% for option in quiz.quizoption_set.all %}
+                          <label class="option-label cursor-pointer text-center">
+                              <input type="radio" name="quiz_{{ quiz.id }}" value="{{ option.option_a }}" class="hidden peer">
+                              <span class="block border rounded-full py-2 text-sm transition bg-[#1e293b] text-white border-gray-600 peer-checked:bg-[#8DEE98] peer-checked:text-[#001f3f] peer-checked:border-[#8DEE98]">
+                                  {{ option.option_a }}
+                              </span>
+                          </label>
+                          <label class="option-label cursor-pointer text-center">
+                              <input type="radio" name="quiz_{{ quiz.id }}" value="{{ option.option_b }}" class="hidden peer">
+                              <span class="block border rounded-full py-2 text-sm transition bg-[#1e293b] text-white border-gray-600 peer-checked:bg-[#8DEE98] peer-checked:text-[#001f3f] peer-checked:border-[#8DEE98]">
+                                  {{ option.option_b }}
+                              </span>
+                          </label>
+                          <label class="option-label cursor-pointer text-center">
+                              <input type="radio" name="quiz_{{ quiz.id }}" value="{{ option.option_c }}" class="hidden peer">
+                              <span class="block border rounded-full py-2 text-sm transition bg-[#1e293b] text-white border-gray-600 peer-checked:bg-[#8DEE98] peer-checked:text-[#001f3f] peer-checked:border-[#8DEE98]">
+                                  {{ option.option_c }}
+                              </span>
+                          </label>
+                          <label class="option-label cursor-pointer text-center">
+                              <input type="radio" name="quiz_{{ quiz.id }}" value="{{ option.option_d }}" class="hidden peer">
+                              <span class="block border rounded-full py-2 text-sm transition bg-[#1e293b] text-white border-gray-600 peer-checked:bg-[#8DEE98] peer-checked:text-[#001f3f] peer-checked:border-[#8DEE98]">
+                                  {{ option.option_d }}
+                              </span>
+                          </label>
+                      {% endfor %}
+                  </div>
+              </div>
+            {% endfor %}
+
+            <div class="text-center">
+              <button @click="submitQuiz"
+                class="bg-[#8DEE98] text-[#001f3f] px-6 py-2 mt-4 rounded-xl font-semibold shadow hover:scale-105 transition-all duration-300">
+                Submit
+              </button>
+            </div>
+          </form>
+        {% endif %}
+      </div>
+    {% endif %}
 
     <!-- Report Button -->
     <div class="px-6 pb-6 text-center">
@@ -201,6 +248,12 @@
           }
         ],
         submitQuiz() {
+          const labels = document.querySelectorAll('.option-label');
+          labels.forEach(label => {
+            label.classList.remove('border-[#8DEE98]', 'bg-[#8DEE98]', 'text-white');
+            label.classList.add('border-gray-600', 'bg-green', 'text-red');
+            console.log(label);
+          });
           const answers = this.quiz.map((q, idx) => ({
             question: q.question,
             selectedOption: q.options[q.selected] || 'No answer'
