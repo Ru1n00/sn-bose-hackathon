@@ -43,6 +43,9 @@
 - HTML + [Tailwind CSS](https://tailwindcss.com/)
 - [Alpine.js](https://alpinejs.dev/) + Vanilla JavaScript
 
+### UI Drsign
+- [Figma UI](https://www.figma.com/design/WegwCD41waTsEjXzrL0vwL/404-Not-Founder?node-id=0-1&t=fc1na33N3DkZMesb-1) – View the figma file from here
+  
 ### Tools & Packages
 - `python -m venv venv` – Python virtual environment
 - `requirements.txt` – Python package dependencies
