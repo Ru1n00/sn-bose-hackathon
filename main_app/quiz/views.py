@@ -16,7 +16,11 @@ def submit_quiz_answer(request, post_slug):
             selected_option = request.POST.get(f"quiz_{quiz.id}")
             if selected_option:
                 QuizAnswer.objects.create(user=request.user, quiz=quiz, selected_option=selected_option, is_correct=(selected_option == quiz.quizoption_set.first().answer))
-            
+        
+        # Update user's streak
+        user_profile = request.user.contentuserprofile
+        user_profile.update_streak()
+        
         messages.success(request, "Your answers have been submitted successfully.")
     return redirect("content:post_detail", slug=post_slug)
 
