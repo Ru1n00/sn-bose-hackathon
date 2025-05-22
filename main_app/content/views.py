@@ -25,8 +25,17 @@ class PostListView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 10  # Number of posts per page
 
+    def get_queryset(self):
+        self.category = self.request.user.contentuserprofile.favorite_subject
+        posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
+        if not posts.exists():
+            # If no posts in the user's favorite category, fetch all active posts
+            posts = Post.objects.filter(is_active=True).select_related("category").order_by("-created_at")
+        return posts
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["category"] = self.category
         return context
     
 class CategoryPostListView(LoginRequiredMixin, ListView):
