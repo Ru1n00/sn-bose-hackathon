@@ -62,6 +62,7 @@ cd edutech
 
 ### 📦 2. Set Up Virtual Environment
 ```bash
+cd main_app/
 python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```
