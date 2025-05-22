@@ -111,10 +111,11 @@ class PostListView(LoginRequiredMixin, ListView, FormView):
     form_class = PostForm
 
     def get_queryset(self):
-        self.category = self.request.user.contentuserprofile.favorite_subject
-        # posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
-        posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
+        # self.category = self.request.user.contentuserprofile.favorite_subject
+        # # posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
+        # posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
         
+        posts = Post.objects.filter(is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
         if not posts.exists():
             # If no posts in the user's favorite category, fetch all active posts
             posts = Post.objects.filter(is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
