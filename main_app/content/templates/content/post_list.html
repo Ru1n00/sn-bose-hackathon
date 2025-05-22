@@ -125,59 +125,27 @@
                         </div>
 
                         <!-- Quiz Form -->
+                        {% for i in 'abc' %}
                         <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
-                        
-
-                            <textarea x-model="quizQuestion" placeholder="Add your question"
+                            <textarea name="questions[]" placeholder="Add your question"
                                 class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
 
                             <div class="grid grid-cols-2 gap-3">
-                                <input type="text" x-model="optionA" placeholder="Option A"
+                                <input type="text" name="option_a[]" required placeholder="Option A"
                                 class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionB" placeholder="Option B"
+                                <input type="text" name="option_b[]" placeholder="Option B"
                                 class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionC" placeholder="Option C"
+                                <input type="text" name="option_c[]" placeholder="Option C"
                                 class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionD" placeholder="Option D"
+                                <input type="text" name="option_d[]" placeholder="Option D"
+                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+                            </div>
+                            <div class="flex justify-center">
+                                <input type="text" name="answers[]" placeholder="Answer"
                                 class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
                             </div>
                         </div>
-                        <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
-                            <input type="text" x-model="quizTitle" placeholder="Add title"
-                                class="w-full bg-transparent border border-[#8DEE98] rounded-full text-white p-3 placeholder-gray-400 text-sm" />
-
-                            <textarea x-model="quizQuestion" placeholder="Add your question"
-                                class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
-
-                            <div class="grid grid-cols-2 gap-3">
-                                <input type="text" x-model="optionA" placeholder="Option A"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionB" placeholder="Option B"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionC" placeholder="Option C"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionD" placeholder="Option D"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                            </div>
-                        </div>
-                        <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
-                            <input type="text" x-model="quizTitle" placeholder="Add title"
-                                class="w-full bg-transparent border border-[#8DEE98] rounded-full text-white p-3 placeholder-gray-400 text-sm" />
-
-                            <textarea x-model="quizQuestion" placeholder="Add your question"
-                                class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
-
-                            <div class="grid grid-cols-2 gap-3">
-                                <input type="text" x-model="optionA" placeholder="Option A"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionB" placeholder="Option B"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionC" placeholder="Option C"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                                <input type="text" x-model="optionD" placeholder="Option D"
-                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
-                            </div>
-                        </div>
+                        {% endfor %}
 
                         <!-- Preview uploaded files (optional) -->
                         <template x-if="imageName">
@@ -268,21 +236,12 @@
     function postForm() {
         return {
             open: false,
-            title: '',
-            description: '',
-            category: '',
-            stage: '',
             imageFile: null,
             videoFile: null,
             imageName: '',
             videoName: '',
             showQuiz: false,
-            quizTitle: '',
-            quizQuestion: '',
-            optionA: '',
-            optionB: '',
-            optionC: '',
-            optionD: '',
+
 
             handleImageUpload(event) {
                 const file = event.target.files[0];
@@ -308,6 +267,14 @@
 
             toggleQuizForm() {
                 this.showQuiz = !this.showQuiz;
+
+                if(!this.showQuiz) {
+                    document.querySelectorAll("textarea[name='questions[]'], input[name='option_a[]'], input[name='option_b[]'], input[name='option_c[]'], input[name='option_d[]'], input[name='answers[]']")
+                        .forEach(field => field.removeAttribute("required"));
+                } else {
+                    document.querySelectorAll("textarea[name='questions[]'], input[name='option_a[]'], input[name='option_b[]'], input[name='option_c[]'], input[name='option_d[]'], input[name='answers[]']")
+                        .forEach(field => field.setAttribute("required", "required"));
+                }
             },
         }
     }

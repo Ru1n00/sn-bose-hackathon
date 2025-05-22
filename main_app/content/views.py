@@ -13,6 +13,8 @@ from .models import (
     Category,
 )
 
+from quiz.models import Quiz, QuizOption
+
 from .forms import PostForm, PostFileFormSet
 
 # Create your views here.
@@ -27,6 +29,40 @@ def handle_post_creation(request, form):
     image_file = request.FILES.get("image_file")
     video_file = request.FILES.get("video_file")
 
+    question = request.POST.getlist("questions[]")
+    answer = request.POST.getlist("answers[]")
+    option_a = request.POST.getlist("option_a[]")
+    option_b = request.POST.getlist("option_b[]")
+    option_c = request.POST.getlist("option_c[]")
+    option_d = request.POST.getlist("option_d[]")
+    # Check if the question and answer lists are of the same length
+    if len(question) != len(answer):
+        messages.error(request, "Question and answer lists must be of the same length.")
+        return redirect("content:post_list")
+    # Check if the options lists are of the same length
+    if len(option_a) != len(option_b) or len(option_a) != len(option_c) or len(option_a) != len(option_d):
+        messages.error(request, "Options lists must be of the same length.")
+        return redirect("content:post_list")
+    
+    # Check if the question and options are not empty
+    for q, a, op_a, op_b, op_c, op_d in zip(question, answer, option_a, option_b, option_c, option_d):
+        if not q or not a or not op_a or not op_b or not op_c or not op_d:
+            messages.error(request, "Question and options cannot be empty.")
+            return redirect("content:post_list")
+        
+    # Check if the answer is one of the options
+    for q, a, op_a, op_b, op_c, op_d in zip(question, answer, option_a, option_b, option_c, option_d):
+        q = q.strip().lower()
+        a = a.strip().lower()
+        op_a = op_a.strip().lower()
+        op_b = op_b.strip().lower()
+        op_c = op_c.strip().lower()
+        op_d = op_d.strip().lower()
+        if a not in [op_a, op_b, op_c, op_d]:
+            messages.error(request, "Answer must be one of the options.")
+            return redirect("content:post_list")
+
+
     if form.is_valid():
         post = form.save(commit=False)
         post.post_user = request.user
@@ -37,6 +73,21 @@ def handle_post_creation(request, form):
             PostFile.objects.create(post=post, file=image_file)
         if video_file:
             PostFile.objects.create(post=post, file=video_file)
+
+        # Create quiz questions and options
+        for q, a, op_a, op_b, op_c, op_d in zip(question, answer, option_a, option_b, option_c, option_d):
+            # Create the quiz question
+            quiz_question = Quiz.objects.create(post=post, question=q)
+
+            # Create the quiz options
+            QuizOption.objects.create(
+                quiz=quiz_question,
+                option_a=op_a,
+                option_b=op_b,
+                option_c=op_c,
+                option_d=op_d,
+                answer=a
+            )
 
         messages.success(request, "Post created successfully!")
         return redirect("content:post_list")  # Redirect after successful submission
