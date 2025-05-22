@@ -123,16 +123,10 @@ class PostSearchView(LoginRequiredMixin, ListView, FormView):
 @login_required
 def post_detail(request, slug):
     # Fetch the post by slug
-    post = get_object_or_404(Post, slug=slug)
 
-
-    # Fetch all files related to the post
-    files = PostFile.objects.filter(post=post)
-    images = files.filter(file_type__in=['jpg', 'jpeg', 'png'])
-    videos = files.filter(file_type__in=['mp4', 'mkv'])
-
-    # comments
-    comments = PostComment.objects.filter(post=post, comment_parent__isnull=True).prefetch_related('replies')
+    post = get_object_or_404(
+        Post.objects.select_related("category").prefetch_related("postfile_set", "postcomment_set").order_by("-created_at"),
+        slug=slug)
 
 
     lang = request.GET.get('lang', 'en')
@@ -146,9 +140,6 @@ def post_detail(request, slug):
 
     context = {
         'post': post,
-        'videos': videos,
-        'images': images,
-        'comments': comments,
     }
     return render(request, 'content/post_detail.html', context)
 
@@ -210,3 +201,28 @@ def post_edit(request, slug):
         file_form = PostFileFormSet(instance=post)
 
     return render(request, 'content/post_edit.html', {'form': form, 'file_form': file_form})
+
+
+@login_required
+def make_comment(request):
+    if request.method == "POST":
+        post_id = request.POST.get("post_id")
+        comment_text = request.POST.get("comment_text")
+        comment_parent_id = request.POST.get("comment_parent_id")
+
+        if not post_id or not comment_text:
+            messages.error(request, "comment text are required.")
+            return redirect("content:post_detail", slug=post.slug)
+        
+        post = get_object_or_404(Post, id=post_id)
+        user = request.user
+
+        # Create a new comment
+        comment = PostComment.objects.create(
+            post=post,
+            user=user,
+            comment_text=comment_text,
+            comment_parent_id=comment_parent_id if comment_parent_id else None,
+        )
+
+        return redirect("content:post_detail", slug=post.slug)

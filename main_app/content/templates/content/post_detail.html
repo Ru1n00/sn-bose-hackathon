@@ -1,4 +1,6 @@
-<div>
+{% extends '_base.html' %}
+{% load static %}
+{% comment %} <div>
     <h1>{{ post.title }}</h1>
     
     {% for video in videos %}
@@ -40,4 +42,175 @@
     <a href="{% url 'content:post_detail' post.slug %}?lang=bn">Translate to Bangla</a>
 
 
+</div> {% endcomment %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock title %}
+
+{% block content %}
+<div class="bg-[#fefcf7] font-sans text-gray-800">
+<!-- Post Preview UI --><!-- Post Preview UI -->
+  <div x-data="quizComponent"
+    class="mt-20 max-w-4xl mx-auto bg-[#0f172a] text-white rounded-3xl overflow-hidden shadow-xl border border-[#2c3e50]">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-4 bg-[#1e293b]">
+      <div class="flex items-center gap-4">
+        <img src="https://i.pravatar.cc/40" class="w-10 h-10 rounded-full border-2 border-[#8DEE98]"
+          alt="Author Avatar">
+        <div>
+          <p class="text-lg font-semibold">{{ post.post_user.contentuserprofile.full_name }}</p>
+          <p class="text-sm text-gray-400">{{ post.title }}</p>
+        </div>
+      </div>
+      <a href="{% url 'content:post_detail' post.slug %}?lang=bn" class="text-[#8DEE98] font-semibold hover:underline">Translate</a>
+    </div>
+
+    {% if post.postfile_set.all %}
+        {% for file in post.postfile_set.all %}
+            {% if file.file_type in "mp4,mov,avi" %}
+                <div class="w-full object-cover">
+                    <video controls class="w-full h-full rounded-t-2xl">
+                        <source src="{{ file.file.url }}" type="video/{{ file.file_type }}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        {% for file in post.postfile_set.all %}
+            {% if file.file_type in "jpg,jpeg,png,gif" %}
+                <div class="relative flex justify-center">
+                    <img src="{{ file.file.url }}" alt="Post Preview" class="!h-[400px] object-cover">
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+
+     <!-- Description -->
+    <div class="px-6 py-4">
+      <h2 class="text-xl font-semibold mb-2">{{ post.title }}</h2>
+      <p class="text-gray-300">
+        {{ post.description|safe }}
+      </p>
+
+    <!-- Reactions and Rating -->
+    <div class="px-6 py-4 flex items-center justify-between border-t border-gray-700">
+      <div class="flex items-center gap-4 text-sm">
+        <a href="" class="text-green-400 focus:outline-none">👍 <span>{{ post.upvotes }}</span></a>
+        <a href="" class="text-red-400 focus:outline-none">👎 <span>{{ post.downvotes }}</span></a>
+      </div>
+      <div class="flex items-center gap-1 text-yellow-400">
+        <span>★★★★★</span>
+      </div>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="px-6 pb-6">
+      <form action="{% url 'content:make_comment' %}" method="post">
+          {% csrf_token %}
+          <input type="text" value="{{ post.id }}" name="post_id" hidden>
+          <textarea name="comment_text" rows="2" placeholder="Leave a comment..."
+            class="w-full p-3 bg-[#1e293b] border border-gray-600 rounded-lg placeholder-gray-400 resize-none mb-4" required></textarea>
+          <button type="submit" class="bg-[#8DEE98] text-[#001f3f] px-4 py-2 rounded-md font-semibold mb-4 cursor-pointer">Post
+            Comment</button>
+      </form>
+
+      <div class="space-y-2">
+        {% for comment in post.postcomment_set.all %}
+            <div class="bg-[#202c3c] p-3 rounded-md text-sm">
+              <strong>{{ comment.user.contentuserprofile.full_name }}</strong>: {{ comment.comment_text }}
+              <small class="block text-gray-500">{{ comment.created_at }}</small>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Quiz Toggle Button -->
+    <div class="px-6 pb-6 text-center">
+      <button @click="quizOpen = !quizOpen"
+        class="bg-[#8DEE98] text-[#001f3f] font-semibold px-6 py-2 rounded-lg shadow hover:scale-105 transition-all duration-300">
+        Give Quiz ⬇️
+      </button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div x-show="quizOpen" x-transition class="px-6 pb-8">
+      <div class="bg-[#0b1724] border border-[#8DEE98] rounded-2xl p-6 space-y-6">
+        <h2 class="text-center text-lg font-semibold text-[#8DEE98]">Test your knowledge</h2>
+
+        <template x-for="(question, index) in quiz" :key="index">
+          <div>
+            <p class="mb-3 text-white" x-text="question.question"></p>
+            <div class="grid grid-cols-2 gap-4">
+              <template x-for="(option, i) in question.options" :key="i">
+                <button
+                  :class="question.selected === i ? 'bg-[#8DEE98] text-[#001f3f] border-[#8DEE98]' : 'bg-[#1e293b] text-white border-gray-600'"
+                  class="border rounded-full py-2 text-sm transition" @click="question.selected = i">
+                  <span x-text="option"></span>
+                </button>
+              </template>
+            </div>
+          </div>
+        </template>
+
+        <div class="text-center">
+          <button @click="submitQuiz"
+            class="bg-[#8DEE98] text-[#001f3f] px-6 py-2 mt-4 rounded-xl font-semibold shadow hover:scale-105 transition-all duration-300">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Button -->
+    <div class="px-6 pb-6 text-center">
+      <button class="text-red-400 hover:underline font-semibold">Report this content as inappropriate</button>
+    </div>
+  </div>
 </div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('quizComponent', () => ({
+        quizOpen: false,
+        newComment: '',
+        comments: [
+          'Great Work! 🌛',
+          'Very easy to understand ❤️',
+          'Amazing content 😍'
+        ],
+        quiz: [
+          {
+            question: 'What is AI primarily used in education?',
+            options: ['Making Robots', 'Cheating in Exam', 'Make study easier', 'Making Bombs'],
+            selected: null
+          },
+          {
+            question: 'Which one is a frontend framework?',
+            options: ['Laravel', 'Vue.js', 'Node.js', 'Django'],
+            selected: null
+          },
+          {
+            question: 'What does CSS stand for?',
+            options: ['Creative Style Sheets', 'Cascading Style Sheets', 'Colorful Style Syntax', 'Coding Style Sheet'],
+            selected: null
+          }
+        ],
+        submitQuiz() {
+          const answers = this.quiz.map((q, idx) => ({
+            question: q.question,
+            selectedOption: q.options[q.selected] || 'No answer'
+          }));
+          console.log('User Answers:', answers);
+          alert('Answers submitted! Check console for details.');
+        },
+      }))
+    })
+  </script>
+<script src="{% static 'script/remove_circle.js' %}" defer></script>
+
+{% endblock scripts %}
