@@ -35,13 +35,14 @@
 
 
 {% block content %}
-{{ form }}
-{% for chioce in form.stage.field.choices %}
-    <option value="{{ chioce.0 }}">{{ chioce.1 }}</option>
-{% endfor %}
 <div class="bg-[#fefcf7] font-sans text-gray-800">
 
     <!-- Hero -->
+    {% for message in messages %}
+        <div id="error-message-{{forloop.counter}}" class="err-msg bg-red-500 text-white p-4 rounded-lg shadow-md fixed top-5 right-5 transition-opacity duration-500 opacity-100 position-absolute z-50 top-0">
+            <p>{{message}}</p>
+        </div>
+    {% endfor %}
 
     <img class="w-full" src="../assets/feed-hero/Physics.jpg" alt="">
 
@@ -98,46 +99,51 @@
                         📝 Write a post...
                     </button>
 
-                    <form x-show="open" x-transition @submit.prevent="submitPost" class="mt-5 space-y-4">
+                    <form x-show="open" x-transition method="POST" action="{% url 'content:post_list' %}" enctype="multipart/form-data"  class="mt-5 space-y-4">
+                        {% csrf_token %}
                         <!-- Title -->
-                        <input type="text" id="id_title" name="title" x-model="title" placeholder="Title" required
+                        <input type="text" id="id_title" name="title" x-model="title" placeholder="Title" maxlength="255" required
                         class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400" />
 
                         <!-- Main Post Description -->
-                        <textarea rows="4" x-model="description" placeholder="What's on your mind?" required
+                        <textarea rows="4" id="id_description" name="description"
+                        x-model="description" placeholder="What's on your mind?" required
                         class="w-full p-4 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400 resize-none"></textarea>
 
                         <!-- Category Dropdown -->
-                        <select x-model="category" required
+                        <select id="id_category" name="category" x-model="category" required
                             class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
-                            <option value="" disabled>Select Category</option>
-                            <option>Technology</option>
-                            <option>Education</option>
-                            <option>Health</option>
-                            <option>Entertainment</option>
-                            <option>Sports</option>
-                            <option>Other</option>
+                            {% for option in form.category.field.choices %}
+                                <{% if forloop.counter == 1 %}
+                                    <option value="" disabled>Select Category</option>
+                                {% else %}
+                                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
 
                         <!-- Stage Dropdown -->
-                        <select x-model="stage" required
+                        <select id="id_stage" name="stage" x-model="stage" required
                         class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
-                            <option value="" disabled>Select Stage</option>
-                            <option>Primary</option>
-                            <option>Secondary</option>
-                            <option>Higher Secondary</option>
-                            <option>Undergrad</option>
+            
+                            {% for option in form.stage.field.choices %}
+                                {% if forloop.counter == 1 %}
+                                    <option value="" disabled>Select Stage</option>
+                                {% else %}
+                                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
 
                         <!-- Media & Quiz Buttons -->
                         <div class="flex justify-between items-center">
                             <div class="flex gap-4 text-sm font-medium text-[#8DEE98]">
                                 <label class="cursor-pointer hover:underline flex items-center gap-1">
-                                <input type="file" accept="image/*" class="hidden" @change="handleImageUpload" />
+                                <input type="file" name="image_file" accept="image/*" class="hidden" @change="handleImageUpload" />
                                 📷 Add Image
                                 </label>
                                 <label class="cursor-pointer hover:underline flex items-center gap-1">
-                                <input type="file" accept="video/*" class="hidden" @change="handleVideoUpload" />
+                                <input type="file" name="video_file" accept="video/*" class="hidden" @change="handleVideoUpload" />
                                 🎥 Add Video
                                 </label>
                                 <button type="button" @click="toggleQuizForm" class="hover:underline">🧠 Add Quiz</button>
@@ -395,49 +401,21 @@
             toggleQuizForm() {
                 this.showQuiz = !this.showQuiz;
             },
-
-            submitPost() {
-                console.log({
-                    title: this.title,
-                    description: this.description,
-                    category: this.category,
-                    stage: this.stage,
-                    imageFile: this.imageFile,
-                    videoFile: this.videoFile,
-                    quiz: this.showQuiz
-                        ? {
-                            quizTitle: this.quizTitle,
-                            question: this.quizQuestion,
-                            options: [this.optionA, this.optionB, this.optionC, this.optionD]
-                        }
-                        : null
-                });
-
-<script src="{% static 'script/remove_circle.js' %}" defer></script>
-
-                // Reset form
-                this.title = '';
-                this.description = '';
-                this.category = '';
-                this.stage = '';
-                this.imageFile = null;
-                this.videoFile = null;
-                this.imageName = '';
-                this.videoName = '';
-                this.open = false;
-
-                // Reset quiz
-                this.showQuiz = false;
-                this.quizTitle = '';
-                this.quizQuestion = '';
-                this.optionA = '';
-                this.optionB = '';
-                this.optionC = '';
-                this.optionD = '';
-            }
         }
     }
 </script>
 
 <script src="{% static 'script/remove_circle.js' %}" defer></script>
+
+
+<script>
+    const errorMessages = document.querySelectorAll('.err-msg');
+    errorMessages.forEach((message) => {
+        message.classList.add('opacity-0');
+        setTimeout(() => {
+            message.remove();
+        }, 3000); // Adjust the timing to match the CSS transition duration
+    });
+</script>
+
 {% endblock scripts %}

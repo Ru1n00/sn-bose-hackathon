@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
+from django.contrib import messages
 
 from .utils import translate_text
 from .models import (
@@ -19,11 +20,36 @@ def index(request):
     return render(request, 'content/index.html')
 
 
-class PostListView(LoginRequiredMixin, ListView):
+# utility function to handle post creation and file uploads
+def handle_post_creation(request, form):
+    """Handles post creation and file uploads"""
+
+    image_file = request.FILES.get("image_file")
+    video_file = request.FILES.get("video_file")
+
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.post_user = request.user
+        post.save()
+
+        # Handle file uploads
+        if image_file:
+            PostFile.objects.create(post=post, file=image_file)
+        if video_file:
+            PostFile.objects.create(post=post, file=video_file)
+
+        messages.success(request, "Post created successfully!")
+        return redirect("content:post_list")  # Redirect after successful submission
+    else:
+        messages.error(request, "Error creating post. Please check the form.")
+        return None  # Indicate form errors
+
+class PostListView(LoginRequiredMixin, ListView, FormView):
     model = Post
     template_name = 'content/post_list.html'
     context_object_name = 'posts'
     paginate_by = 10  # Number of posts per page
+    form_class = PostForm
 
     def get_queryset(self):
         self.category = self.request.user.contentuserprofile.favorite_subject
@@ -36,7 +62,14 @@ class PostListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["category"] = self.category
+        context["form"] = self.get_form(self.form_class)
         return context
+    
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        result = handle_post_creation(request, form)
+        return result if result else self.get(request, *args, **kwargs)
+    
     
 class CategoryPostListView(LoginRequiredMixin, ListView):
     model = Post
