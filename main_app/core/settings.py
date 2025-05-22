@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     
     # Third-party apps
     'django_cleanup.apps.CleanupConfig',
+    'pwa',
+    'django_browser_reload',  # For django-browser-reload
 
 ]
 
@@ -64,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',  # For django-browser-reload
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -156,3 +159,51 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # Login and logout redirect URLs
 LOGIN_URL = reverse_lazy('accounts:sign_in')
 LOGIN_REDIRECT_URL = reverse_lazy('content:index')
+
+
+# pwa settings
+PWA_APP_NAME = 'Edutech'
+PWA_APP_DESCRIPTION = "Learn science and technology with us"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/assets/join.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/assets/join.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/splash-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'Shortcut',
+        'url': '/target',
+        'description': 'Shortcut to a page in my application'
+    }
+]
+PWA_APP_SCREENSHOTS = [
+    {
+      'src': '/static/images/icons/splash-750x1334.png',
+      'sizes': '750x1334',
+      "type": "image/png"
+    }
+]
+
+PWA_APP_DEBUG_MODE = DEBUG
