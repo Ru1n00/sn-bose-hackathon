@@ -1,27 +1,296 @@
-<div>
-    <form action="{% url 'content:search' %}" method="GET">
-        <input type="text" name="q" placeholder="Search posts...">
-        <button type="submit">Search</button>
-    </form>
+{% extends '_base.html' %}
+{% load static %}
 
-    {% for post in posts %}
-        <div class="post">
-            <a href="{% url 'content:post_detail' post.slug %}">{{ post.title }}</a>
-            <p>{{ post.description }}</p>
-            <p><strong>Author:</strong> {{ post.post_user.email }}</p>
-            <p><strong>Date:</strong> {{ post.created_at }}</p>
+{% block title %}
+    Post List
+{% endblock %}
+
+
+{% block content %}
+<div class="bg-[#fefcf7] font-sans text-gray-800">
+
+    <!-- Hero -->
+    {% for message in messages %}
+        <div id="error-message-{{forloop.counter}}" class="err-msg bg-red-500 text-white p-4 rounded-lg shadow-md fixed top-5 right-5 transition-opacity duration-500 opacity-100 position-absolute z-50 top-0">
+            <p>{{message}}</p>
         </div>
     {% endfor %}
-    {% if posts.has_other_pages %}
-        <div class="pagination">
-            {% if posts.has_previous %}
-                <a href="?page={{ posts.previous_page_number }}">Previous</a>
-            {% endif %}
-            <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">Next</a>
-            {% endif %}
+
+    <img class="w-full" src="../assets/feed-hero/Physics.jpg" alt="">
+
+    <!-- Full Page Wrapper with Dark Futuristic Background -->
+    <div class="min-h-screen bg-[#0f172a] text-white py-10 px-4">
+
+        <!-- Main Grid -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Sidebar -->
+            <aside class="hidden lg:block bg-[#1e293b] rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-5 tracking-wide">📁 Navigation</h2>
+                <ul class="space-y-4">
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">🧭 Dashboard</a></li>
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">🎓 My Courses</a></li>
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">💬 Messages</a></li>
+                    <li><a href="#" class="block hover:text-[#8DEE98] transition">⚙️ Settings</a></li>
+                </ul>
+            </aside>
+
+            <!-- Feed -->
+            <main class="lg:col-span-3 space-y-8">
+
+                <!-- Search Bar Container -->
+                <div class="max-w-xl mx-auto mt-10">
+
+                    <!-- Search Bar -->
+                    <form action="{% url 'content:search' %}" method="GET"
+                        class="flex items-center bg-white/5 backdrop-blur-lg border border-green-400/30 hover:shadow-2xl transition duration-300 rounded-full px-4 py-2 pr-2">
+
+                        <!-- Search Icon -->
+                        <svg class="w-5 h-5 text-green-300 mr-3" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
+                        </svg>
+
+                        <!-- Input Field -->
+                        <input type="text" placeholder="Search posts..." name="q"
+                            class="flex-grow bg-transparent outline-none text-white placeholder-green-300 text-sm" />
+
+                        <!-- Search Button -->
+                        <button
+                            class="ml-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-4 py-1.5 text-sm rounded-full font-medium hover:brightness-110 transition">
+                            Search
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Create Post -->
+                <div x-data="postForm()" class="bg-[#1e293b] rounded-2xl shadow p-6 max-w-lg mx-auto">
+                    <button @click="open = !open"
+                        class="w-full text-left text-gray-300 font-medium border-b border-gray-600 pb-3 hover:text-white">
+                        📝 Write a post...
+                    </button>
+
+                    <form x-show="open" x-transition method="POST" action="{% url 'content:post_list' %}" enctype="multipart/form-data"  class="mt-5 space-y-4">
+                        {% csrf_token %}
+                        <!-- Title -->
+                        <input type="text" id="id_title" name="title" x-model="title" placeholder="Title" maxlength="255" required
+                        class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400" />
+
+                        <!-- Main Post Description -->
+                        <textarea rows="4" id="id_description" name="description"
+                        x-model="description" placeholder="What's on your mind?" required
+                        class="w-full p-4 bg-[#0f172a] border border-gray-600 rounded-lg text-white placeholder-gray-400 resize-none"></textarea>
+
+                        <!-- Category Dropdown -->
+                        <select id="id_category" name="category" x-model="category" required
+                            class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
+                            {% for option in form.category.field.choices %}
+                                <{% if forloop.counter == 1 %}
+                                    <option value="" disabled>Select Category</option>
+                                {% else %}
+                                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        <!-- Stage Dropdown -->
+                        <select id="id_stage" name="stage" x-model="stage" required
+                        class="w-full p-3 bg-[#0f172a] border border-gray-600 rounded-lg text-white">
+            
+                            {% for option in form.stage.field.choices %}
+                                {% if forloop.counter == 1 %}
+                                    <option value="" disabled>Select Stage</option>
+                                {% else %}
+                                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        <!-- Media & Quiz Buttons -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-4 text-sm font-medium text-[#8DEE98]">
+                                <label class="cursor-pointer hover:underline flex items-center gap-1">
+                                <input type="file" name="image_file" accept="image/*" class="hidden" @change="handleImageUpload" />
+                                📷 Add Image
+                                </label>
+                                <label class="cursor-pointer hover:underline flex items-center gap-1">
+                                <input type="file" name="video_file" accept="video/*" class="hidden" @change="handleVideoUpload" />
+                                🎥 Add Video
+                                </label>
+                                <button type="button" @click="toggleQuizForm" class="hover:underline">🧠 Add Quiz</button>
+                            </div>
+
+                        
+                        </div>
+
+                        <!-- Quiz Form -->
+                        {% for i in 'abc' %}
+                        <div x-show="showQuiz" x-transition class="bg-[#0f172a] border border-[#8DEE98] rounded-xl p-4 mt-4 space-y-3">
+                            <textarea name="questions[]" placeholder="Add your question"
+                                class="w-full bg-transparent border border-[#8DEE98] rounded-xl text-white p-3 placeholder-gray-400 text-sm resize-none"></textarea>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <input type="text" name="option_a[]" required placeholder="Option A"
+                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+                                <input type="text" name="option_b[]" placeholder="Option B"
+                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+                                <input type="text" name="option_c[]" placeholder="Option C"
+                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+                                <input type="text" name="option_d[]" placeholder="Option D"
+                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+                            </div>
+                            <div class="flex justify-center">
+                                <input type="text" name="answers[]" placeholder="Answer"
+                                class="bg-transparent border border-[#8DEE98] rounded-full text-white p-2 text-sm" />
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <!-- Preview uploaded files (optional) -->
+                        <template x-if="imageName">
+                            <p class="text-gray-400 text-sm mt-2">Image: <span x-text="imageName"></span></p>
+                        </template>
+                        <template x-if="videoName">
+                            <p class="text-gray-400 text-sm mt-1">Video: <span x-text="videoName"></span></p>
+                        </template>
+                        <div class="flex justify-center mt-4">
+                            <button type="submit"
+                                class="bg-[#001f3f] text-[#8DEE98] px-6 py-2 rounded-md font-semibold border border-[#8DEE98] hover:bg-opacity-90 transition">
+                                Post
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+                <!-- Posts -->
+                {% for post in posts %}
+                <div
+                    class="bg-[#0f172a] rounded-2xl shadow-xl overflow-hidden transition hover:shadow-2xl border border-[#1e293b]">
+                    <!-- Media Preview -->
+
+                    {% with post.postfile_set.first as first_file %}
+                        {% if first_file %}
+                            {% if first_file.file_type in "jpg,jpeg,png,gif" %}
+                                <img src="{{ first_file.file.url }}" alt="Post Image" class="w-full h-60 object-cover" />
+                            {% elif first_file.file_type in "mp4,mov,avi" %}
+                                <div class="w-full h-60 overflow-hidden">
+                                    <video controls class="w-full h-full rounded-t-2xl">
+                                        <source src="{{ first_file.file.url }}" type="video/{{ first_file.file_type }}">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            {% else %}
+                                <p>Unsupported file type: {{ first_file.file_type }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <!-- Post Content -->
+                    <div class="p-6 space-y-4">
+                        <!-- Title -->
+                        <h2 class="text-2xl font-bold text-[#8DEE98] tracking-wide">🚀 {{ post.title }}</h2>
+
+                        <!-- Author & Meta -->
+                        <div class="flex items-center justify-between text-sm text-gray-400">
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.pravatar.cc/40" alt="Author Avatar"
+                                    class="w-9 h-9 rounded-full border-2 border-[#8DEE98]" />
+                                <span class="font-medium text-white">{{ post.post_user.contentuserprofile.full_name }}</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="italic">Published: {{ post.created_at|date:"F j, Y" }}</p>
+                                <span
+                                    class="inline-block mt-1 bg-[#1e293b] text-[#8DEE98] text-xs px-2 py-1 rounded-full font-medium shadow">
+                                    🧠 {{ post.category.title }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            T{{ post.description|truncatechars:200 }} 💡
+                        </p>
+
+                        <!-- CTA Button -->
+                        <div class="pt-4">
+                            <a href="{% url 'content:post_detail' post.slug %}"
+                                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl bg-[#001f3f] text-[#8DEE98] hover:bg-[#002b5c] transition">
+                                🔍 See Full Post
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </main>
         </div>
-    {% endif %}
+    </div>
 
 </div>
+{% endblock content %}
+
+{% block scripts %}
+<!-- Alpine Script -->
+<script>
+    function postForm() {
+        return {
+            open: false,
+            imageFile: null,
+            videoFile: null,
+            imageName: '',
+            videoName: '',
+            showQuiz: false,
+
+
+            handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.imageFile = file;
+                    this.imageName = file.name;
+                } else {
+                    this.imageFile = null;
+                    this.imageName = '';
+                }
+            },
+
+            handleVideoUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.videoFile = file;
+                    this.videoName = file.name;
+                } else {
+                    this.videoFile = null;
+                    this.videoName = '';
+                }
+            },
+
+            toggleQuizForm() {
+                this.showQuiz = !this.showQuiz;
+
+                if(!this.showQuiz) {
+                    document.querySelectorAll("textarea[name='questions[]'], input[name='option_a[]'], input[name='option_b[]'], input[name='option_c[]'], input[name='option_d[]'], input[name='answers[]']")
+                        .forEach(field => field.removeAttribute("required"));
+                } else {
+                    document.querySelectorAll("textarea[name='questions[]'], input[name='option_a[]'], input[name='option_b[]'], input[name='option_c[]'], input[name='option_d[]'], input[name='answers[]']")
+                        .forEach(field => field.setAttribute("required", "required"));
+                }
+            },
+        }
+    }
+</script>
+
+<script src="{% static 'script/remove_circle.js' %}" defer></script>
+
+
+<script>
+    const errorMessages = document.querySelectorAll('.err-msg');
+    errorMessages.forEach((message) => {
+        message.classList.add('opacity-0');
+        setTimeout(() => {
+            message.remove();
+        }, 3000); // Adjust the timing to match the CSS transition duration
+    });
+</script>
+
+{% endblock scripts %}
