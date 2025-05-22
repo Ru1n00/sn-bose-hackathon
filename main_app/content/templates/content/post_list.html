@@ -1,32 +1,4 @@
 {% extends '_base.html' %}
-{% comment %} <div>
-    <form action="{% url 'content:search' %}" method="GET">
-        <input type="text" name="q" placeholder="Search posts...">
-        <button type="submit">Search</button>
-    </form>
-
-    {% for post in posts %}
-        <div class="post">
-            <a href="{% url 'content:post_detail' post.slug %}">{{ post.title }}</a>
-            <p>{{ post.description }}</p>
-            <p><strong>Author:</strong> {{ post.post_user.email }}</p>
-            <p><strong>Date:</strong> {{ post.created_at }}</p>
-        </div>
-    {% endfor %}
-    {% if posts.has_other_pages %}
-        <div class="pagination">
-            {% if posts.has_previous %}
-                <a href="?page={{ posts.previous_page_number }}">Previous</a>
-            {% endif %}
-            <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">Next</a>
-            {% endif %}
-        </div>
-    {% endif %}
-
-</div> {% endcomment %}
-
 {% load static %}
 
 {% block title %}
