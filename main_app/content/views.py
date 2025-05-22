@@ -53,10 +53,12 @@ class PostListView(LoginRequiredMixin, ListView, FormView):
 
     def get_queryset(self):
         self.category = self.request.user.contentuserprofile.favorite_subject
-        posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
+        # posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
+        posts = Post.objects.filter(category=self.category, is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
+        
         if not posts.exists():
             # If no posts in the user's favorite category, fetch all active posts
-            posts = Post.objects.filter(is_active=True).select_related("category").order_by("-created_at")
+            posts = Post.objects.filter(is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
         return posts
 
     def get_context_data(self, **kwargs):
@@ -71,14 +73,15 @@ class PostListView(LoginRequiredMixin, ListView, FormView):
         return result if result else self.get(request, *args, **kwargs)
     
     
-class CategoryPostListView(LoginRequiredMixin, ListView):
+class CategoryPostListView(LoginRequiredMixin, ListView, FormView):
     model = Post
     template_name = "content/post_list.html"
     context_object_name = "posts"
+    form_class = PostForm
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs.get("category_slug"))
-        return Post.objects.filter(category=self.category, is_active=True).select_related("category").order_by("-created_at")
+        return Post.objects.filter(category=self.category, is_active=True).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         """ Pass category to context without redundant query """
@@ -86,24 +89,35 @@ class CategoryPostListView(LoginRequiredMixin, ListView):
         context["category"] = self.category  # Use the category already fetched in `get_queryset()`
         return context
 
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        result = handle_post_creation(request, form)
+        return result if result else self.get(request, *args, **kwargs)
 
-class PostSearchView(LoginRequiredMixin, ListView):
+
+class PostSearchView(LoginRequiredMixin, ListView, FormView):
     model = Post
     template_name = "content/post_search_results.html"
     context_object_name = "posts"
+    form_class = PostForm
 
     def get_queryset(self):
         query = self.request.GET.get("q")  # Get search query from URL
         if query:
             return Post.objects.filter(is_active=True).filter(
                 Q(title__icontains=query) | Q(description__icontains=query)
-            ).order_by("-created_at")
+            ).select_related("category").prefetch_related("postfile_set").order_by("-created_at")
         return Post.objects.none()  # Return empty queryset if no query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["query"] = self.request.GET.get("q")
         return context
+    
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        result = handle_post_creation(request, form)
+        return result if result else self.get(request, *args, **kwargs)
 
 
 @login_required
