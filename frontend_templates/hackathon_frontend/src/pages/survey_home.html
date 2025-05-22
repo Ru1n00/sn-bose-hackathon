@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academic Surveys Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            survey: {
+              dark: '#0f172a',
+              accent: '#10b981',
+              card: '#1e293b',
+              button: '#10b981',
+              buttonHover: '#059669'
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .survey-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .survey-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .go-button {
+      transition: all 0.2s ease;
+    }
+    
+    .go-button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="bg-survey-dark text-white min-h-screen">
+
+  <div class="container mx-auto px-4 py-12 max-w-4xl">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-semibold mb-2">Give Your Valuable Opinion on Our</h1>
+      <h1 class="text-3xl md:text-4xl font-semibold">Recently Going <span class="text-survey-accent">Surveys</span></h1>
+    </header>
+
+    <!-- Survey Cards Container -->
+    <div class="space-y-4 md:space-y-6">
+      
+      <!-- Physics Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Physics</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Students' Understanding and Application of Newton's Laws in Real Life"<br>
+            Explore how well students relate theoretical physics to everyday scenarios.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Chemistry Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Chemistry</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Awareness and Attitudes Toward Chemical Safety in School Laboratories"<br>
+            Evaluate students' knowledge and practices regarding chemical handling and lab safety.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Mathematics Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Mathematics</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Perceptions of Math Anxiety and Its Impact on Student Performance"<br>
+            Investigate how math-related stress affects learning and exam outcomes.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Biology Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Biology</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Student Awareness of Environmental Issues and Biodiversity Conservation"<br>
+            Assess how informed students are about biological conservation and its importance.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Technology Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Technology</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Impact of Digital Tools on Academic Learning and Productivity"<br>
+            Analyze how students use technology (apps, online platforms, etc.) in their academic life.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Innovation Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Innovation</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Student Interest in Innovation and Entrepreneurship in STEM Fields"<br>
+            Explore the level of curiosity and initiative among students regarding new ideas and startups.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Research Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Research</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Attitudes Toward Undergraduate Research Participation in Science Subjects"<br>
+            Understand how students view research and their involvement in academic projects.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Engineering Survey Card -->
+      <div class="survey-card bg-survey-card rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl text-survey-accent font-medium">Engineering</h2>
+            <a href="#" class="go-button bg-survey-button text-white px-4 py-1.5 rounded-md font-medium hover:bg-survey-buttonHover">GO</a>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            "Career Aspirations and Challenges Faced by Engineering Students"<br>
+            Gain insight into what motivates students to engineering and the obstacles they face.
+          </p>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Footer -->
+    
+  </div>
+</body>
+</html>

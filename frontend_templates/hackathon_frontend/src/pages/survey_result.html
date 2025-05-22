@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Results - Newton's Laws</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            survey: {
+              dark: '#0f172a',
+              accent: '#10b981',
+              card: '#1e293b',
+              button: '#10b981',
+              buttonHover: '#059669'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-survey-dark text-white min-h-screen">
+  <div class="container mx-auto px-4 py-12 max-w-2xl">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-semibold mb-2">Here is Your <span class="text-survey-accent">Survey</span> Result!</h1>
+    </header>
+
+    <!-- Results Display -->
+    <div class="bg-survey-card rounded-xl p-6 md:p-8 shadow-lg">
+      <h2 class="text-xl font-semibold mb-6">Students' Understanding and Application of <span class="text-survey-accent">Newton's</span> Laws in Real Life</h2>
+      
+      <div class="space-y-8">
+        <!-- Question 1 Results -->
+        <div class="space-y-4">
+          <p class="text-gray-300">Q1: How well do you understand Newton's First Law of Motion?</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Very well</span>
+                <span id="q1-very-well">5%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 5%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Slightly</span>
+                <span>45%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Somewhat</span>
+                <span>30%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 30%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Not at all</span>
+                <span>20%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 20%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2 Results -->
+        <div class="space-y-4">
+          <p class="text-gray-300">Q2: Have you ever applied Newton's Laws to understand a real-world situation (e.g., car stopping, sports)?</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Frequently</span>
+                <span>20%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 20%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Occasionally</span>
+                <span>15%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 15%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Rarely</span>
+                <span>40%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 40%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Never</span>
+                <span>25%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 25%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 3 Results -->
+        <div class="space-y-4">
+          <p class="text-gray-300">Q3: How often are Newton's Laws discussed in practical lab sessions?</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Always</span>
+                <span>40%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 40%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Often</span>
+                <span>30%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 30%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Rarely</span>
+                <span>20%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 20%"></div>
+              </div>
+            </div>
+            <div class="bg-survey-dark p-3 rounded-lg">
+              <div class="flex justify-between mb-1">
+                <span>Never</span>
+                <span>10%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-survey-accent rounded-full h-2" style="width: 10%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Go Back Button -->
+        <div class="text-center pt-4">
+          <a href="physics.html" class="inline-block bg-survey-accent hover:bg-survey-buttonHover text-white px-8 py-3 rounded-lg font-medium text-lg transition-colors duration-200">Go Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+</html>
