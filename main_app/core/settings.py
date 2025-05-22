@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'content.apps.ContentConfig',
     'quiz.apps.QuizConfig',
     'dashboard.apps.DashboardConfig',
+    'survey.apps.SurveyConfig',
     
     # Third-party apps
     'django_cleanup.apps.CleanupConfig',

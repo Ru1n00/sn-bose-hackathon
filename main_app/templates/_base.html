@@ -67,7 +67,7 @@
               {% endfor %}
             </div>
           </div>
-          <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="#">Surveys</a>
+          <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="{% url 'survey:survey_list' %}">Surveys</a>
           <a class="text-white hover:text-green-400 text-lg font-medium transition-colors" href="{% url 'content:index' %}#why-us">About Us</a>
         </nav>
 
@@ -104,7 +104,7 @@
             {% endfor %}
           </div>
         </div>
-        <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="#">Surveys</a>
+        <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="{% url 'survey:survey_list' %}">Surveys</a>
         <a class="block text-white hover:text-green-400 text-lg font-medium mb-2" href="{% url 'content:index' %}#why-us">About Us</a>
         <!-- <button class="w-full mt-4 bg-green-400 hover:bg-green-300 text-[#070926] py-2 rounded-md font-semibold">
           <a class="w-full h-[100%] block" href="{% url 'accounts:sign_up' %}">Sign Up</a>
