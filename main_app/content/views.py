@@ -96,7 +96,9 @@ def handle_post_creation(request, form):
                     option_d=op_d,
                     answer=a
                 )
-
+        # Update user's streak
+        user_profile = request.user.contentuserprofile
+        user_profile.update_streak()
         messages.success(request, "Post created successfully!")
         return redirect("content:post_list")  # Redirect after successful submission
     else:
