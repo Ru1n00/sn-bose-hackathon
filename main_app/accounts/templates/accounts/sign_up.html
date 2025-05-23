@@ -68,6 +68,13 @@
           <div>
             <label for="id_email" class="block text-sm font-medium text-gray-500 mb-1">Email</label>
             {{ form.email }}
+            {% if form.email.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.email.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
           
           <!-- Education Level -->
@@ -86,12 +93,26 @@
           <div>
             <label for="id_password1" class="block text-sm font-medium text-gray-500 mb-1">Password</label>
             {{ form.password1 }}
+            {% if form.password1.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.password1.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
           
           <!-- Confirm Password -->
           <div>
             <label for="id_password2" class="block text-sm font-medium text-gray-500 mb-1">Re-enter Password</label>
             {{ form.password2 }}
+            {% if form.password2.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.password2.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
           
           <!-- Submit Button -->
