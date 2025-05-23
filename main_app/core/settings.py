@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     
     # Third-party apps
     'django_cleanup.apps.CleanupConfig',
-    # 'pwa',
+    'pwa',
     # 'django_browser_reload',  # For django-browser-reload
 
 ]
@@ -139,12 +139,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATIC_URL = 'static/'
-if DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-    ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # STORAGES = {
@@ -177,27 +175,27 @@ LOGIN_REDIRECT_URL = reverse_lazy('content:index')
 
 
 # # pwa settings
-# PWA_APP_NAME = 'Edutech'
-# PWA_APP_DESCRIPTION = "Learn science and technology with us"
-# PWA_APP_THEME_COLOR = '#0A0302'
-# PWA_APP_BACKGROUND_COLOR = '#ffffff'
-# PWA_APP_DISPLAY = 'standalone'
-# PWA_APP_SCOPE = '/'
-# PWA_APP_ORIENTATION = 'any'
-# PWA_APP_START_URL = '/'
-# PWA_APP_STATUS_BAR_COLOR = 'default'
-# PWA_APP_ICONS = [
-#     {
-#         'src': '/static/assets/join.png',
-#         'sizes': '160x160'
-#     }
-# ]
-# PWA_APP_ICONS_APPLE = [
-#     {
-#         'src': '/static/assets/join.png',
-#         'sizes': '160x160'
-#     }
-# ]
+PWA_APP_NAME = 'Edutech'
+PWA_APP_DESCRIPTION = "Learn science and technology with us"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/assets/join.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/assets/join.png',
+        'sizes': '160x160'
+    }
+]
 # PWA_APP_SPLASH_SCREEN = [
 #     {
 #         'src': '/static/images/icons/splash-640x1136.png',

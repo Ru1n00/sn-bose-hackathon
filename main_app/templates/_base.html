@@ -1,10 +1,10 @@
 {% load static %}
-
+{% load pwa %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+  {% progressive_web_app_meta %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}EduTech{% endblock %}</title>
@@ -39,9 +39,6 @@
   <div class="relative w-full min-h-[75rem] bg-stone-50 overflow-hidden">
     <div class="js-bg w-full h-[1157px] absolute left-0 top-0 bg-cover bg-center bg-no-repeat z-0 pointer-events-none"
     ></div>
-
-    <div class="nav-circle hidden md:block absolute w-[120%] h-[50rem] left-[-10rem] top-[61.62rem] bg-stone-50 rounded-full">
-    </div>
 
     <!-- Header -->
     <!-- Navigation Bar -->
